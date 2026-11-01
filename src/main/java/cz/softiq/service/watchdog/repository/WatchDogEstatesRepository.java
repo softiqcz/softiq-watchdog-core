@@ -17,7 +17,8 @@ public interface WatchDogEstatesRepository
     extends JpaRepository<WatchDogEstatesEntity, Integer>, IBaseRepository {
 
   @Query("SELECT w FROM WatchDogEstatesEntity w WHERE w.watchdogEntity = :watchDog")
-  List<WatchDogEstatesEntity> findAllWatchDogEstateEntities(WatchDogEntity watchDog);
+  List<WatchDogEstatesEntity> findAllWatchDogEstateEntities(
+      @Param("watchDog") WatchDogEntity watchDog);
 
   @Query(
       "SELECT w FROM WatchDogEstatesEntity w WHERE w.watchdogEntity.client = :coreClientEntity AND w.isReported = :isReported")

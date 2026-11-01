@@ -5,11 +5,11 @@ plugins {
     id 'com.diffplug.spotless' version '6.20.0'
 }
 group = 'cz.softiq.watchdog'
-version = '1.0.0'
+version = '1.0.1'
 dependencyManagement { imports { mavenBom 'org.springframework.boot:spring-boot-dependencies:3.5.3' } }
 java { toolchain { languageVersion = JavaLanguageVersion.of(24) } }
 tasks.withType(JavaCompile).configureEach {
-    options.compilerArgs += ['-Xlint:deprecation', '-Xlint:unchecked']
+    options.compilerArgs += ['-parameters', '-Xlint:deprecation', '-Xlint:unchecked']
 }
 spotless { java { googleJavaFormat('1.17.0') } }
 repositories {
