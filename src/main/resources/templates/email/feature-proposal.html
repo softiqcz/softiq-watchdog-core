@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <title>SOFTIQ – podpora</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Jost:wght@400;600&family=Playfair+Display:wght@600&display=swap"
+          rel="stylesheet"/>
+    <style>
+        body, table, td, p, a, li {
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+        }
+
+        table, td {
+            mso-table-lspace: 0pt;
+            mso-table-rspace: 0pt;
+            border-collapse: collapse;
+        }
+
+        img {
+            -ms-interpolation-mode: bicubic;
+            border: 0;
+            outline: none;
+            text-decoration: none;
+        }
+
+        body {
+            margin: 0 !important;
+            padding: 0 !important;
+            background-color: #f0f4f2;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .email-container {
+                width: 100% !important;
+            }
+
+            .hero-headline {
+                font-size: 1.5rem !important;
+            }
+        }
+    </style>
+</head>
+<body style="background-color:#f0f4f2; margin:0; padding:0;">
+
+<table border="0" cellpadding="0" cellspacing="0" style="background-color:#f0f4f2;" width="100%">
+    <tr>
+        <td align="center" style="padding:32px 16px;">
+
+            <table border="0" cellpadding="0" cellspacing="0" class="email-container"
+                   style="max-width:600px; width:100%;"
+                   width="600">
+
+                <!-- ══ HEADER ══ -->
+                <tr>
+                    <td style="padding:0 4px 24px;">
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                            <tr>
+                                <td>
+                                    <span style="font-family:'Jost',sans-serif; font-weight:400; font-size:1.75rem; color:#1B4242; letter-spacing:-0.5px; line-height:1; display:block;">SOFTIQ</span>
+                                    <span style="font-size:0.7rem; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:#7DA596; display:block;">Podpora - <span th:text="${type}">FEATURE</span></span>
+                                </td>
+                                <td align="right" valign="middle">
+                                    <span th:text="${from}" style="background-color:#1B4242; color:#fff; font-size:0.7rem; font-weight:600; letter-spacing:2px; text-transform:uppercase; padding:6px 14px; border-radius:100px; display:inline-block;">odkoho@toje.cz</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+                <!-- ══ HERO ══ -->
+                <tr>
+                    <td style="padding-bottom:12px;">
+                        <table border="0" cellpadding="0" cellspacing="0"
+                               style="background:#1B4242; border-radius:16px;"
+                               width="100%">
+                            <tr>
+                                <td style="padding:40px 32px 44px;">
+                                    <p style="font-size:0.62rem; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:#7DA596; margin:0 0 14px 0;">
+                                        Nový požadavek na <span th:text="${type}">FEATURE</span></p>
+                                    <p th:text="${from}" class="hero-headline"
+                                       style="font-family:'Playfair Display',serif; font-size:2rem; color:#fff; line-height:1.2; margin:0 0 16px 0;">
+                                        odkoho@toje.cz</p>
+                                    <p th:text="${message}" style="font-size:0.92rem; color:rgba(255,255,255,0.75); line-height:1.7; margin:0; max-width:460px;">
+                                        tady bude zprava co uzivatel pozaduje</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+                <!-- ══ FOOTER ══ -->
+                <tr>
+                    <td>
+                        <table border="0" cellpadding="0" cellspacing="0"
+                               style="background:#1B4242; border-radius:16px;"
+                               width="100%">
+                            <tr>
+                                <td style="padding:28px 24px 18px;">
+                                    <table border="0" cellpadding="0" cellspacing="0" style="margin-bottom:20px;"
+                                           width="100%">
+                                        <tr valign="top">
+                                            <td style="text-align:center; padding-right:12px;" width="33%">
+                                                <p style="font-family:'Jost',sans-serif; font-weight:400; font-size:1.05rem; color:#fff; letter-spacing:0.15em; text-transform:uppercase; margin:0 0 4px 0;">
+                                                    SOFTIQ</p>
+                                                <p style="font-size:0.72rem; color:rgba(255,255,255,0.65); line-height:1.5; margin:0 0 6px 0;">
+                                                    Hlídací pes na nemovitosti</p>
+                                                <span style="background:#7DA596; color:#fff; font-size:0.55rem; font-weight:600; letter-spacing:2px; text-transform:uppercase; padding:2px 6px; border-radius:100px; display:inline-block; margin-bottom:4px;">Novinka</span>
+                                                <p style="font-size:0.72rem; color:rgba(255,255,255,0.65); line-height:1.5; margin:0;">
+                                                    Portfolio nemovitostí</p>
+                                            </td>
+                                            <td style="padding:0 8px;" width="33%">
+                                                <p style="font-size:0.76rem; color:rgba(255,255,255,0.8); line-height:1.6; margin:0;">
+                                                    Inzeráty můžete prohlížet i na <a href="https://softiq.cz"
+                                                                                      style="color:rgba(255,255,255,0.65); text-decoration:underline;">softiq.cz</a>
+                                                    — seřaďte je dle ceny, data nebo si je uložte do oblíbených.</p>
+                                            </td>
+                                            <td style="padding-left:12px;" width="33%">
+                                                <p style="font-size:0.76rem; color:rgba(255,255,255,0.8); line-height:1.6; margin:0;">
+                                                    Dotazy? Napište nám na <a href="mailto:info@softiq.cz"
+                                                                              style="color:rgba(255,255,255,0.65); text-decoration:underline;">info@softiq.cz</a>
+                                                </p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                        <tr>
+                                            <td colspan="2"
+                                                style="height:1px; background:rgba(255,255,255,0.12); font-size:0; padding:0;"></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding-top:14px;">
+                                                <a href="https://softiq.cz"
+                                                   style="font-family:'Jost',sans-serif; font-size:0.65rem; font-weight:400; letter-spacing:3px; text-transform:uppercase; color:#fff; text-decoration:none;">SOFTIQ</a>
+                                            </td>
+                                            <td align="right" style="padding-top:14px;">
+                                                <span style="font-size:0.65rem; color:rgba(255,255,255,0.4);">© 2026 softiq.cz</span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+            </table>
+
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>

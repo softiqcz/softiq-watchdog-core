@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Jost:wght@400;600&family=Playfair+Display:wght@600&display=swap"
+          rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #f0f4f2;
+            font-family: 'Jost', sans-serif;
+            padding: 32px 16px;
+            color: #1a1a1a;
+        }
+
+        .email-wrapper {
+            max-width: 600px;
+            margin: auto;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 4px 24px;
+        }
+
+        .brand {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .brand-name {
+            font-family: 'Jost', sans-serif;
+            font-weight: 400;
+            font-size: 1.75rem;
+            color: #1B4242;
+            letter-spacing: -0.5px;
+            line-height: 1;
+        }
+
+        .brand-sub {
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #7DA596;
+        }
+
+        .badge {
+            background-color: #1B4242;
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 6px 14px;
+            border-radius: 100px;
+        }
+
+        .section-title {
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #7DA596;
+            padding: 0 4px 12px;
+        }
+
+        .watchdog-address {
+            font-family: Arial, serif;
+            font-size: 1.15rem;
+            color: #1B4242;
+            padding: 12px 20px;
+            background: #fff;
+            border-left: 3px solid #7DA596;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 12px;
+        }
+
+        .stat-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 12px;
+            border: 1px solid #e8eeec;
+            text-align: center;
+        }
+
+        .footer {
+            background: #1B4242;
+            padding: 36px 20px 30px;
+            border-radius: 12px;
+            margin-top: 24px;
+        }
+
+        .footer-cols {
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            flex-wrap: wrap;
+        }
+
+        .footer-col {
+            min-width: 0;
+            text-align: center;
+        }
+
+        .footer-brand {
+            font-family: "Jost", sans-serif;
+            font-weight: 400;
+            font-size: 1.05rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            color: #fff;
+        }
+
+        .footer-tagline {
+            font-size: 0.72rem;
+            color: rgba(255, 255, 255, 0.65);
+            line-height: 1.5;
+        }
+
+        .footer-news {
+            display: inline-block;
+            margin-top: 7px;
+            margin-bottom: 4px;
+            background: #7DA596;
+            font-size: 0.55rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-align: center;
+            padding: 3px 8px;
+            border-radius: 100px;
+            color: #fff;
+        }
+
+        .footer-info {
+            font-size: 0.72rem;
+            color: rgba(255, 255, 255, 0.78);
+            line-height: 1.55;
+        }
+    </style>
+</head>
+
+<body bgcolor="#f0f4f2"
+      style='background-color:#f0f4f2; font-family:"Jost", sans-serif; padding:32px 16px; color:#1a1a1a'>
+
+<div class="email-wrapper"
+     style="max-width:600px; margin:auto">
+
+    <!-- HEADER -->
+
+    <div class="header"
+         style="display:flex; align-items:center; justify-content:space-between; padding:0 4px 24px">
+
+        <div class="brand"
+             style="display:flex; flex-direction:column; gap:2px">
+
+            <span class="brand-name"
+                  style='font-family:"Jost", sans-serif; font-weight:400; font-size:1.75rem; color:#1B4242; letter-spacing:-0.5px; line-height:1'>
+                SOFTIQ
+            </span>
+
+            <span class="brand-sub"
+                  style="font-size:0.7rem; font-weight:500; letter-spacing:3px; text-transform:uppercase; color:#7DA596">
+                Hlídací pes
+            </span>
+
+        </div>
+
+        <span bgcolor="#1B4242"
+              class="badge"
+              style="background-color:#1B4242; font-size:0.7rem; font-weight:600; letter-spacing:2px; text-transform:uppercase; padding:6px 14px; border-radius:100px; color:#fff">
+            Měsíční přehled
+        </span>
+
+    </div>
+
+
+    <!-- SECTION TITLE -->
+
+    <p class="section-title"
+       style="font-size:0.65rem; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:#7DA596; padding:0 4px 12px">
+        Shrnutí za uplynulý měsíc – <span th:text="${clientSummary.totalWatchdogCount}">3</span>
+        <span th:text="${clientSummary.totalWatchdogCount == 1 ? 'hlídací pes' : (clientSummary.totalWatchdogCount >= 2 && clientSummary.totalWatchdogCount <= 4 ? 'hlídací psi' : 'hlídacích psů')}">hlídací psi</span>
+    </p>
+
+
+    <!-- TOTAL SUMMARY CARD -->
+
+    <div style="background:#fff; border-radius:12px; padding:20px; margin-bottom:24px; border:1px solid #e8eeec">
+
+        <div style="font-size:0.7rem; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:#6b7280; margin-bottom:12px; text-align:center">
+            Celkem za všechny hlídací psy
+        </div>
+
+        <div style="text-align:center; margin-bottom:8px">
+            <div style='font-family:"Arial", serif; font-size:2rem; font-weight:700; color:#1B4242; line-height:1'
+                 th:text="${clientSummary.totalOfferCount}">
+                42
+            </div>
+            <div style="font-size:0.85rem; color:#53645e; margin-top:4px">
+                nových nabídek nalezeno
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- SECTION TITLE FOR INDIVIDUAL WATCHDOGS -->
+
+    <p class="section-title"
+       style="font-size:0.65rem; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:#6b7280; padding:0 4px 12px">
+        Jednotliví hlídací psi
+    </p>
+
+
+    <!-- LOOP THROUGH ALL WATCHDOGS -->
+
+    <div th:each="ws, iterStat : ${clientSummary.watchdogSummaries}">
+
+        <!-- WATCHDOG NAME -->
+
+        <div style='font-family:"Arial", serif; font-size:1.15rem; color:#1B4242; padding:12px 20px; background:#fff; border-left:3px solid #7DA596; border-radius:0 8px 8px 0; margin-bottom:12px'>
+
+            <div style="font-weight:600; margin-bottom:4px"
+                 th:text="${ws.watchdog.exactAddress}">
+                Praha 5, byty 2+kk
+            </div>
+
+            <div style="font-size:0.75rem; color:#7DA596; font-weight:500">
+                <span th:if="${ws.watchdog.offerType != null and !ws.watchdog.offerType.isEmpty()}"
+                      th:text="${ws.watchdog.offerType}">
+                    Prodej
+                </span>
+                <span th:if="${ws.watchdog.offerType != null and !ws.watchdog.offerType.isEmpty() and ws.watchdog.estateType != null and !ws.watchdog.estateType.isEmpty()}">
+                    •
+                </span>
+                <span th:if="${ws.watchdog.estateType != null and !ws.watchdog.estateType.isEmpty()}"
+                      th:text="${ws.watchdog.estateType}">
+                    Byt
+                </span>
+            </div>
+
+        </div>
+
+
+        <!-- OFFER COUNT CARD -->
+
+        <div class="stat-card"
+             style="background:#fff; border-radius:12px; padding:20px; margin-bottom:12px; border:1px solid #e8eeec; text-align:center">
+
+            <div style="font-size:0.7rem; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:#7DA596; margin-bottom:8px">
+                Celkem nalezeno
+            </div>
+
+            <div style='font-family:"Arial", serif; font-size:2rem; font-weight:700; color:#1B4242; line-height:1; margin-bottom:6px'
+                 th:text="${ws.summary.currentMonthOfferCount}">
+                42
+            </div>
+
+            <div style="font-size:0.85rem; font-weight:600">
+
+                <span th:if="${ws.summary.offerCountTrend == 'up'}"
+                      style="color:#4F8067">
+                    ↑ <span th:text="${#numbers.formatInteger(ws.summary.offerCountChange, 0, 'WHITESPACE')}">5</span> více než minulý měsíc
+                </span>
+
+                <span th:if="${ws.summary.offerCountTrend == 'down'}"
+                      style="color:#B64F4F">
+                    ↓ <span th:text="${#numbers.formatInteger(Math.abs(ws.summary.offerCountChange), 0, 'WHITESPACE')}">3</span> méně než minulý měsíc
+                </span>
+
+                <span th:if="${ws.summary.offerCountTrend == 'stable'}"
+                      style="color:#697875">
+                    = Stejně jako minulý měsíc
+                </span>
+
+            </div>
+
+        </div>
+
+
+    <!-- STATISTICS HEADER -->
+
+    <div style="background:#1B4242; border-radius:8px; padding:14px 18px; margin-bottom:12px">
+
+        <div style="font-size:0.95rem; font-weight:600; color:#fff; margin-bottom:2px">
+            Statistiky měsíce
+        </div>
+
+        <div style="font-size:0.75rem; color:rgba(255,255,255,0.7)">
+            Průměrné hodnoty za uplynulý měsíc
+        </div>
+
+    </div>
+
+
+    <!-- QUICK ANALYSIS -->
+
+    <div style="background:#fff; border-radius:12px; padding:20px; margin-bottom:12px; border:1px solid #e8eeec">
+
+
+        <table cellpadding="0"
+               cellspacing="0"
+               border="0"
+               width="100%"
+               style="width:100%; border-collapse:separate; border-spacing:0 8px; table-layout:fixed; margin-bottom:12px">
+
+            <!-- PRICE / M2 ROW -->
+
+            <tr>
+                <td width="100%"
+                    style="background:#f4f7f5; border-radius:8px; padding:0; vertical-align:middle">
+
+                    <table cellpadding="0"
+                           cellspacing="0"
+                           border="0"
+                           width="100%"
+                           style="width:100%; border-collapse:collapse">
+                        <tr>
+                            <!-- Label -->
+                            <td width="90px"
+                                style="padding:12px 0 12px 16px; font-size:0.62rem; color:#6b7280; white-space:nowrap">
+                                Cena za m²
+                            </td>
+
+                            <!-- Value -->
+                            <td style="padding:12px 12px 12px 0; font-family:Arial,serif; font-size:0.82rem; color:#1B4242; font-weight:600">
+                                <span th:if="${ws.summary.currentMonthAveragePricePerSquareMeter != null}"
+                                      th:text="${#numbers.formatInteger(summary.currentMonthAveragePricePerSquareMeter, 0, 'WHITESPACE') + ' Kč'}">
+                                    68 500 Kč
+                                </span>
+                                <span th:if="${ws.summary.currentMonthAveragePricePerSquareMeter == null}"
+                                      style="color:#7DA596">
+                                    N/A
+                                </span>
+                            </td>
+
+                            <!-- Percentage -->
+                            <td width="90px"
+                                style="padding:12px 16px 12px 0; text-align:right">
+                                <span th:if="${ws.summary.pricePerSquareMeterTrend == 'up'}"
+                                      style="display:inline-block; padding:4px 8px; background:#e8f5ed; color:#4F8067; font-size:0.7rem; font-weight:600; border-radius:6px; white-space:nowrap">
+                                    ↑ <span th:text="${#numbers.formatDecimal(summary.pricePerSquareMeterChangePercent, 0, 1)}">5.2</span>%
+                                </span>
+                                <span th:if="${ws.summary.pricePerSquareMeterTrend == 'down'}"
+                                      style="display:inline-block; padding:4px 8px; background:#fdeaec; color:#B64F4F; font-size:0.7rem; font-weight:600; border-radius:6px; white-space:nowrap">
+                                    ↓ <span th:text="${#numbers.formatDecimal(summary.pricePerSquareMeterChangePercent.abs(), 0, 1)}">3.8</span>%
+                                </span>
+                                <span th:if="${ws.summary.pricePerSquareMeterTrend == 'stable'}"
+                                      style="display:inline-block; padding:4px 8px; background:#e8eeec; color:#697875; font-size:0.7rem; font-weight:600; border-radius:6px; white-space:nowrap">
+                                    beze změny
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+
+                </td>
+            </tr>
+
+
+            <!-- PRICE ROW -->
+
+            <tr>
+                <td width="100%"
+                    style="background:#f4f7f5; border-radius:8px; padding:0; vertical-align:middle">
+
+                    <table cellpadding="0"
+                           cellspacing="0"
+                           border="0"
+                           width="100%"
+                           style="width:100%; border-collapse:collapse">
+                        <tr>
+                            <!-- Label -->
+                            <td width="90px"
+                                style="padding:12px 0 12px 16px; font-size:0.62rem; color:#6b7280; white-space:nowrap">
+                                Cena
+                            </td>
+
+                            <!-- Value -->
+                            <td style="padding:12px 12px 12px 0; font-family:Arial,serif; font-size:0.82rem; color:#1B4242; font-weight:600">
+                                <span th:if="${ws.summary.currentMonthAveragePrice != null}"
+                                      th:text="${#numbers.formatInteger(summary.currentMonthAveragePrice, 0, 'WHITESPACE') + ' Kč'}">
+                                    3 850 000 Kč
+                                </span>
+                                <span th:if="${ws.summary.currentMonthAveragePrice == null}"
+                                      style="color:#7DA596">
+                                    N/A
+                                </span>
+                            </td>
+
+                            <!-- Percentage -->
+                            <td width="90px"
+                                style="padding:12px 16px 12px 0; text-align:right">
+                                <span th:if="${ws.summary.priceTrend == 'up'}"
+                                      style="display:inline-block; padding:4px 8px; background:#e8f5ed; color:#4F8067; font-size:0.7rem; font-weight:600; border-radius:6px; white-space:nowrap">
+                                    ↑ <span th:text="${#numbers.formatDecimal(summary.priceChangePercent, 0, 1)}">4.5</span>%
+                                </span>
+                                <span th:if="${ws.summary.priceTrend == 'down'}"
+                                      style="display:inline-block; padding:4px 8px; background:#fdeaec; color:#B64F4F; font-size:0.7rem; font-weight:600; border-radius:6px; white-space:nowrap">
+                                    ↓ <span th:text="${#numbers.formatDecimal(summary.priceChangePercent.abs(), 0, 1)}">2.3</span>%
+                                </span>
+                                <span th:if="${ws.summary.priceTrend == 'stable'}"
+                                      style="display:inline-block; padding:4px 8px; background:#e8eeec; color:#697875; font-size:0.7rem; font-weight:600; border-radius:6px; white-space:nowrap">
+                                    beze změny
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+
+                </td>
+            </tr>
+
+
+            <!-- AREA ROW -->
+
+            <tr>
+                <td width="100%"
+                    style="background:#f4f7f5; border-radius:8px; padding:0; vertical-align:middle">
+
+                    <table cellpadding="0"
+                           cellspacing="0"
+                           border="0"
+                           width="100%"
+                           style="width:100%; border-collapse:collapse">
+                        <tr>
+                            <!-- Label -->
+                            <td width="90px"
+                                style="padding:12px 0 12px 16px; font-size:0.62rem; color:#6b7280; white-space:nowrap">
+                                Plocha
+                            </td>
+
+                            <!-- Value -->
+                            <td style="padding:12px 12px 12px 0; font-family:Arial,serif; font-size:0.82rem; color:#1B4242; font-weight:600">
+                                <span th:if="${ws.summary.currentMonthAverageSquareMeters != null}"
+                                      th:text="${#numbers.formatDecimal(summary.currentMonthAverageSquareMeters, 0, 1) + ' m²'}">
+                                    56.5 m²
+                                </span>
+                                <span th:if="${ws.summary.currentMonthAverageSquareMeters == null}"
+                                      style="color:#7DA596">
+                                    N/A
+                                </span>
+                            </td>
+
+                            <!-- Percentage -->
+                            <td width="90px"
+                                style="padding:12px 16px 12px 0; text-align:right">
+                                <span th:if="${ws.summary.sizeTrend == 'up'}"
+                                      style="display:inline-block; padding:4px 8px; background:#e8f5ed; color:#4F8067; font-size:0.7rem; font-weight:600; border-radius:6px; white-space:nowrap">
+                                    ↑ <span th:text="${#numbers.formatDecimal(summary.sizeChangePercent, 0, 1)}">3.2</span>%
+                                </span>
+                                <span th:if="${ws.summary.sizeTrend == 'down'}"
+                                      style="display:inline-block; padding:4px 8px; background:#fdeaec; color:#B64F4F; font-size:0.7rem; font-weight:600; border-radius:6px; white-space:nowrap">
+                                    ↓ <span th:text="${#numbers.formatDecimal(summary.sizeChangePercent.abs(), 0, 1)}">1.8</span>%
+                                </span>
+                                <span th:if="${ws.summary.sizeTrend == 'stable'}"
+                                      style="display:inline-block; padding:4px 8px; background:#e8eeec; color:#697875; font-size:0.7rem; font-weight:600; border-radius:6px; white-space:nowrap">
+                                    beze změny
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+
+                </td>
+            </tr>
+
+        </table>
+
+        <!-- TEXT EXPLANATION -->
+
+        <div style="margin:0; padding:0; font-size:0.72rem; line-height:1.5; color:#607873">
+            <span th:text="${ws.summary.pricePerSquareMeterExplanation}">Cena za m² lehce vzrostla oproti minulému měsíci</span>,
+            <span th:text="${ws.summary.priceExplanation != null ? (ws.summary.priceExplanation.substring(0, 1).toLowerCase() + ws.summary.priceExplanation.substring(1)) : ''}">nabídky jsou lehce dražší než minulý měsíc</span>
+            a <span th:text="${ws.summary.sizeExplanation != null ? (ws.summary.sizeExplanation.substring(0, 1).toLowerCase() + ws.summary.sizeExplanation.substring(1)) : ''}">nabídky jsou lehce větší než minulý měsíc</span>.
+        </div>
+
+    </div>
+
+    </div>
+
+    <!-- END LOOP THROUGH WATCHDOGS -->
+
+
+    <!-- FOOTER -->
+
+    <div class="footer"
+         style="background:#1B4242; padding:36px 20px 30px; border-radius:12px; margin-top:24px">
+
+        <div class="footer-cols"
+             style="display:flex; justify-content:center; gap:48px; flex-wrap:wrap">
+
+            <div class="footer-col"
+                 style="min-width:0; text-align:center">
+
+                <div class="footer-brand"
+                     style='font-family:"Jost", sans-serif; font-weight:400; font-size:1.05rem; letter-spacing:0.25em; text-transform:uppercase; margin-bottom:6px; color:#fff'>
+                    SOFTIQ
+                </div>
+
+                <p class="footer-tagline"
+                   style="font-size:0.72rem; color:rgba(255,255,255,0.65); line-height:1.5">
+                    Hlídací pes na nemovitosti
+                </p>
+
+                <span class="footer-news"
+                      style="display:inline-block; margin-top:7px; margin-bottom:4px; background:#7DA596; font-size:0.55rem; font-weight:600; letter-spacing:2px; text-transform:uppercase; text-align:center; padding:3px 8px; border-radius:100px; color:#fff">
+                    Novinka
+                </span>
+
+                <p class="footer-tagline"
+                   style="font-size:0.72rem; color:rgba(255,255,255,0.65); line-height:1.5">
+                    Portfolio nemovitostí
+                </p>
+
+            </div>
+
+
+            <div class="footer-col"
+                 style="min-width:0; text-align:center">
+
+                <div class="footer-info"
+                     style="font-size:0.72rem; color:rgba(255,255,255,0.78); line-height:1.55">
+
+                    Všechny nabídky můžete prohlížet na
+
+                    <a href="https://softiq.cz"
+                       style="color:rgba(255,255,255,0.9); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.25)">
+                        softiq.cz
+                    </a>
+
+                    — zobrazte si analýzu, seřaďte je dle ceny, data nebo si je uložte do oblíbených.
+
+                </div>
+
+            </div>
+
+
+            <div class="footer-col"
+                 style="min-width:0; text-align:center">
+
+                <div class="footer-info"
+                     style="font-size:0.72rem; color:rgba(255,255,255,0.78); line-height:1.55">
+
+                    Máte dotaz?
+
+                    <br>
+
+                    Napište nám na
+
+                    <a href="mailto:info@softiq.cz"
+                       style="color:rgba(255,255,255,0.9); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.25)">
+                        info@softiq.cz
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

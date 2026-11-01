@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="cs" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&amp;family=Jost:wght@400;600&amp;family=Playfair+Display:wght@600&amp;display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #f0f4f2;
+            font-family: 'Jost', sans-serif;
+            padding: 32px 16px;
+            color: #1a1a1a;
+        }
+
+        .email-wrapper {
+            max-width: 600px;
+            margin: auto;
+        }
+
+        /* ── HEADER ── */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 4px 24px;
+        }
+
+        .brand {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .brand-name {
+            font-family: 'Jost', sans-serif;
+            font-weight: 400;
+            font-size: 1.75rem;
+            color: #1B4242;
+            letter-spacing: -0.5px;
+            line-height: 1;
+        }
+
+        .brand-sub {
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #7DA596;
+        }
+
+        .badge {
+            background-color: #1B4242;
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 6px 14px;
+            border-radius: 100px;
+        }
+
+        /* ── SECTION TITLE ── */
+        .section-title {
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #7DA596;
+            padding: 0 4px 12px;
+        }
+
+        /* ── CONTENT CARD ── */
+        .content-card {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #e8eeec;
+            margin-bottom: 12px;
+            padding: 24px 24px 28px;
+        }
+
+        .content-card p {
+            font-size: 0.9rem;
+            color: #3a3a3a;
+            line-height: 1.65;
+            margin-bottom: 12px;
+        }
+
+        .content-card p:last-child {
+            margin-bottom: 0;
+        }
+
+        .content-card a {
+            color: #7DA596;
+            text-decoration: none;
+            border-bottom: 1px solid #c5ddd7;
+        }
+
+        .content-card a:hover {
+            color: #1B4242;
+            border-bottom-color: #1B4242;
+        }
+
+        /* ── ORDER DETAILS ── */
+        .order-details {
+            background-color: #f0f4f2;
+            border-left: 3px solid #7DA596;
+            border-radius: 0 8px 8px 0;
+            padding: 16px 20px;
+            margin-top: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .detail-row {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .detail-label {
+            font-size: 0.62rem;
+            font-weight: 600;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: #7DA596;
+        }
+
+        .detail-value {
+            font-family: 'Arial', serif;
+            font-size: 1rem;
+            color: #1B4242;
+            font-weight: 600;
+        }
+
+        .detail-value.small {
+            font-family: 'Jost', sans-serif;
+            font-size: 0.88rem;
+            font-weight: 400;
+            color: #3a3a3a;
+        }
+
+        /* ── DIVIDER ── */
+        .divider {
+            height: 1px;
+            background: linear-gradient(to right, #7DA596, transparent);
+            margin: 8px 0 24px;
+            border: none;
+        }
+
+        /* ── FOOTER ── */
+        .footer {
+            background: linear-gradient(to right, #1B4242, #2d6b5e);
+            border-radius: 16px;
+            padding: 28px 24px 18px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 20px;
+        }
+
+        .footer-col {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .footer-brand {
+            font-family: 'Jost', sans-serif;
+            font-weight: 400;
+            font-size: 1.05rem;
+            color: #fff;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .footer-tagline {
+            font-size: 0.72rem;
+            color: rgba(255, 255, 255, 0.65);
+            line-height: 1.5;
+        }
+
+        .footer-col-title {
+            font-size: 0.58rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.45);
+            margin-bottom: 4px;
+        }
+
+        .footer a {
+            color: rgba(255, 255, 255, 0.65);
+            text-decoration: none;
+            font-size: 0.76rem;
+            border-bottom: 1px solid transparent;
+            width: fit-content;
+        }
+
+        .footer a:hover {
+            color: #fff;
+            border-bottom-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .footer-info-row {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+            margin-bottom: 4px;
+        }
+
+        .footer-info-value {
+            font-size: 0.76rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .footer-news {
+            background: #7DA596;
+            color: #fff;
+            font-size: 0.55rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-align: center;
+            padding: 2px 6px;
+            border-radius: 100px;
+            vertical-align: middle;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
+            padding-top: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-bottom-brand {
+            font-family: 'Jost', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 400;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .footer-bottom-copy {
+            font-size: 0.65rem;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* ── MOBILE ── */
+        @media (max-width: 480px) {
+            body {
+                padding: 16px 10px;
+            }
+
+            .brand-name {
+                font-size: 1.4rem;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .order-details {
+                padding: 14px 16px;
+            }
+        }
+    </style>
+</head>
+<body style='background-color:#f0f4f2; font-family:"Jost", sans-serif; padding:32px 16px; color:#1a1a1a' bgcolor="#f0f4f2">
+<div class="email-wrapper" style="max-width:600px; margin:auto">
+
+    <div class="header" style="display:flex; align-items:center; justify-content:space-between; padding:0 4px 24px">
+        <div class="brand" style="display:flex; flex-direction:column; gap:2px">
+            <span class="brand-name" style='font-family:"Jost", sans-serif; font-weight:400; font-size:1.75rem; color:#1B4242; letter-spacing:-0.5px; line-height:1'>SOFTIQ</span>
+            <span class="brand-sub" style="font-size:0.7rem; font-weight:500; letter-spacing:3px; text-transform:uppercase; color:#7DA596">Správa účtu</span>
+        </div>
+        <span class="badge" style="background-color:#1B4242; font-size:0.7rem; font-weight:600; letter-spacing:2px; text-transform:uppercase; padding:6px 14px; border-radius:100px; color:#fff" bgcolor="#1B4242">Potvrzení</span>
+    </div>
+
+    <p class="section-title" style="font-size:0.65rem; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:#7DA596; padding:0 4px 12px">Potvrzení objednávky</p>
+
+    <div class="content-card" style="background:#fff; border-radius:12px; overflow:hidden; border:1px solid #e8eeec; margin-bottom:12px; padding:24px 24px 28px">
+        <p style="font-size:0.9rem; color:#3a3a3a; line-height:1.65; margin-bottom:12px">Dobrý den, děkujeme za objednávku.</p>
+        <p style="font-size:0.9rem; color:#3a3a3a; line-height:1.65; margin-bottom:12px">Potvrzujeme úspěšnou změnu předplatného vašeho účtu na
+            <a href="https://softiq.cz" style="color:#7DA596; text-decoration:none; border-bottom:1px solid #c5ddd7">softiq.cz</a>.
+        </p>
+
+        <div class="order-details" style="background-color:#f0f4f2; border-left:3px solid #7DA596; border-radius:0 8px 8px 0; padding:16px 20px; margin-top:16px; display:flex; flex-direction:column; gap:10px" bgcolor="#f0f4f2">
+
+            <div class="detail-row" style="display:flex; flex-direction:column; gap:2px">
+                <span class="detail-label" style="font-size:0.62rem; font-weight:600; letter-spacing:2.5px; text-transform:uppercase; color:#7DA596">Členství</span>
+                <span class="detail-value" th:text="${membership.name}" style='font-family:"Arial", serif; font-size:1rem; color:#1B4242; font-weight:600'>PREMIUM</span>
+            </div>
+
+            <th:block th:if="${membership.name == 'BASIC'}">
+                <div class="detail-row" style="display:flex; flex-direction:column; gap:2px">
+                    <span class="detail-label" style="font-size:0.62rem; font-weight:600; letter-spacing:2.5px; text-transform:uppercase; color:#7DA596">Členství končí ke dni</span>
+                    <span class="detail-value small" th:text="${valid_to}" style='font-family:"Jost", sans-serif; font-size:0.88rem; color:#3a3a3a; font-weight:400'>31. 12. 2025</span>
+                </div>
+                <div class="detail-row" style="display:flex; flex-direction:column; gap:2px">
+                    <span class="detail-value small" style='font-family:"Jost", sans-serif; font-size:0.88rem; color:#3a3a3a; font-weight:400'>Poté budete vyzváni ke zrušení účtu nebo zvýšení úrovně členství.</span>
+                </div>
+            </th:block>
+
+            <th:block th:unless="${membership.name == 'BASIC'}">
+                <div class="detail-row" style="display:flex; flex-direction:column; gap:2px">
+                    <span class="detail-label" style="font-size:0.62rem; font-weight:600; letter-spacing:2.5px; text-transform:uppercase; color:#7DA596">Částka</span>
+                    <span class="detail-value" th:text="${price} + ' Kč měsíčně'" style='font-family:"Arial", serif; font-size:1rem; color:#1B4242; font-weight:600'>299 Kč měsíčně</span>
+                </div>
+                <div class="detail-row" style="display:flex; flex-direction:column; gap:2px">
+                    <span class="detail-label" style="font-size:0.62rem; font-weight:600; letter-spacing:2.5px; text-transform:uppercase; color:#7DA596">Frekvence strhávání</span>
+                    <span class="detail-value small" style='font-family:"Jost", sans-serif; font-size:0.88rem; color:#3a3a3a; font-weight:400'>Měsíční</span>
+                </div>
+                <div class="detail-row" style="display:flex; flex-direction:column; gap:2px">
+                    <span class="detail-label" style="font-size:0.62rem; font-weight:600; letter-spacing:2.5px; text-transform:uppercase; color:#7DA596">Příští platba</span>
+                    <span class="detail-value small" th:text="${valid_to}" style='font-family:"Jost", sans-serif; font-size:0.88rem; color:#3a3a3a; font-weight:400'>17. 4. 2026</span>
+                </div>
+            </th:block>
+
+        </div>
+    </div>
+
+    <hr class="divider" style="height:1px; background:linear-gradient(to right, #7DA596, transparent); margin:8px 0 24px; border:none" height="1">
+
+    <div class="footer" style="background:linear-gradient(to right, #1B4242, #2d6b5e); border-radius:16px; padding:28px 24px 18px">
+        <div class="footer-grid" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:24px; margin-bottom:20px">
+
+            <!-- Brand col -->
+            <div class="footer-col center" style="display:flex; flex-direction:column; gap:5px; align-items:center; justify-content:center; text-align:center" align="center">
+                <div class="footer-brand" style='font-family:"Jost", sans-serif; font-weight:400; font-size:1.05rem; letter-spacing:0.15em; text-transform:uppercase; margin-bottom:4px; color:#fff'>SOFTIQ</div>
+                <p class="footer-tagline" style="font-size:0.72rem; color:rgba(255, 255, 255, 0.65); line-height:1.5">Hlídací pes na nemovitosti</p>
+                <span class="footer-news" style="background:#7DA596; font-size:0.55rem; font-weight:600; letter-spacing:2px; text-transform:uppercase; text-align:center; padding:2px 6px; border-radius:100px; vertical-align:middle; color:#fff" align="center" valign="middle">Novinka</span>
+                <span class="footer-tagline" style="font-size:0.72rem; color:rgba(255, 255, 255, 0.65); line-height:1.5">Portfolio nemovitostí</span>
+            </div>
+
+            <!-- Nav col -->
+            <div class="footer-col" style="display:flex; flex-direction:column; gap:5px; align-items:center; justify-content:center">
+                <span class="footer-info-value" style="font-size:0.76rem; color:rgba(255, 255, 255, 0.8)">
+                    Inzeráty můžete prohlížet i na <a href="https://softiq.cz" style="color:rgba(255, 255, 255, 0.65); text-decoration:none; font-size:0.76rem; border-bottom:1px solid transparent; width:fit-content" width="fit-content">softiq.cz</a> —
+                    seřaďte je dle ceny, data nebo si je uložte do oblíbených.
+                </span>
+            </div>
+
+            <!-- Info col -->
+            <div class="footer-col" style="display:flex; flex-direction:column; gap:5px; align-items:center; justify-content:center">
+                <div class="footer-info-row" style="display:flex; flex-direction:column; gap:1px; margin-bottom:4px">
+                    <span class="footer-info-value" style="font-size:0.76rem; color:rgba(255, 255, 255, 0.8)">Členství můžete kdykoliv zrušit nebo upravit v nastavení svého účtu.</span>
+                </div>
+                <div class="footer-info-row" style="display:flex; flex-direction:column; gap:1px; margin-bottom:4px">
+                    <span class="footer-info-value" style="font-size:0.76rem; color:rgba(255, 255, 255, 0.8)">Dotazy? Napište nám na <a href="mailto:info@softiq.cz" style="color:rgba(255, 255, 255, 0.65); text-decoration:none; font-size:0.76rem; border-bottom:1px solid transparent; width:fit-content" width="fit-content"><span class="__cf_email__" data-cfemail="5d34333b321d2e323b29342c733e27">[email&amp;</span></a></span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

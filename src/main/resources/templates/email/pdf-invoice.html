@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="cs" xmlns:th="http://www.thymeleaf.org" style='background:#fff; font-family:"Jost", sans-serif; font-size:11pt; color:#1a1a1a; width:100%; height:100%' width="100%" height="100%">
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&amp;family=Jost:wght@400;600&amp;family=Playfair+Display:wght@600&amp;display=swap" rel="stylesheet"/>
+    <style>
+        @page { size: A4; margin: 20mm; }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html, body {
+            background: #fff;
+            font-family: 'Jost', sans-serif;
+            font-size: 11pt;
+            color: #1a1a1a;
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            padding: 0;
+        }
+
+        .invoice-wrapper {
+            max-width: 180mm;
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            min-height: 100%;
+        }
+
+        /* ── HEADER ── */
+        .inv-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            padding-bottom: 24px;
+            border-bottom: 2px solid #1B4242;
+            margin-bottom: 28px;
+        }
+
+        .inv-brand { display: flex; flex-direction: column; gap: 3px; }
+        .inv-brand-name {
+            font-family: 'Jost', sans-serif;
+            font-weight: 400;
+            font-size: 1.6rem;
+            color: #1B4242;
+            letter-spacing: -0.5px;
+            line-height: 1;
+        }
+        .inv-brand-sub {
+            font-size: 0.62rem;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #7DA596;
+        }
+
+        .inv-title-block { text-align: right; }
+        .inv-title {
+            font-family: 'Jost', serif;
+            font-size: 1.4rem;
+            color: #1B4242;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+        .inv-number {
+            font-size: 0.75rem;
+            color: #7DA596;
+            letter-spacing: 1px;
+            margin-top: 4px;
+        }
+
+        /* ── PARTIES ROW ── */
+        .parties-row {
+            display: flex;
+            gap: 32px;
+            margin-bottom: 28px;
+        }
+
+        .party { flex: 1; }
+
+        .party-label {
+            font-size: 0.58rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #7DA596;
+            margin-bottom: 8px;
+        }
+
+        .party-name {
+            font-family: 'Jost', serif;
+            font-size: 1rem;
+            color: #1B4242;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .party-sub {
+            font-size: 0.7rem;
+            color: #7DA596;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .party p {
+            font-size: 0.82rem;
+            color: #3a3a3a;
+            line-height: 1.6;
+        }
+
+        .party-accent {
+            border-left: 3px solid #7DA596;
+            padding-left: 12px;
+        }
+
+        /* ── PAYMENT DETAILS ── */
+        .section-label {
+            font-size: 0.58rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #7DA596;
+            margin-bottom: 10px;
+        }
+
+        .payment-row {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 28px;
+        }
+
+        .payment-item { flex: 1; }
+
+        .payment-item-label {
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #7DA596;
+            margin-bottom: 3px;
+        }
+
+        .payment-item-value {
+            font-size: 0.88rem;
+            color: #1B4242;
+            font-weight: 500;
+        }
+
+        /* ── TABLE ── */
+        .inv-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .inv-table thead tr {
+            background-color: #1B4242;
+        }
+
+        .inv-table thead th {
+            padding: 10px 14px;
+            font-size: 0.62rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #fff;
+            text-align: left;
+        }
+
+        .inv-table tbody tr {
+            border-bottom: 1px solid #e8eeec;
+        }
+
+        .inv-table tbody tr:last-child { border-bottom: none; }
+
+        .inv-table tbody td {
+            padding: 12px 14px;
+            font-size: 0.85rem;
+            color: #3a3a3a;
+            vertical-align: top;
+        }
+
+        .inv-table tbody td.total-cell {
+            font-family: 'Jost', serif;
+            font-size: 1rem;
+            color: #1B4242;
+            font-weight: 600;
+        }
+
+        /* ── SUMMARY ── */
+        .inv-summary {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 32px;
+        }
+
+        .inv-summary-box {
+            background: #f0f4f2;
+            border-left: 3px solid #1B4242;
+            border-radius: 0 8px 8px 0;
+            padding: 14px 20px;
+            min-width: 220px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .summary-label {
+            font-size: 0.72rem;
+            color: #7DA596;
+            font-weight: 500;
+        }
+
+        .summary-value {
+            font-family: 'Jost', serif;
+            font-size: 1.2rem;
+            color: #1B4242;
+            font-weight: 600;
+        }
+
+        /* ── FOOTER ── */
+        .inv-footer {
+            margin-top: auto;
+            background: linear-gradient(to right, #1B4242, #2d6b5e);
+            border-radius: 10px;
+            padding: 14px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .inv-footer p {
+            font-size: 0.72rem;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .inv-footer a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+        }
+
+        .inv-footer-brand {
+            font-family: 'Jost', sans-serif;
+            font-size: 0.65rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #fff;
+        }
+    </style>
+</head>
+<body style='background:#fff; font-family:"Jost", sans-serif; font-size:11pt; color:#1a1a1a; width:100%; height:100%; display:flex; justify-content:center; padding:0' width="100%" height="100%">
+<div class="invoice-wrapper" style="max-width:180mm; width:100%; margin:0 auto; display:flex; flex-direction:column; min-height:100%" width="100%">
+
+    <!-- Header -->
+    <div class="inv-header" style="display:flex; align-items:flex-start; justify-content:space-between; padding-bottom:24px; border-bottom:2px solid #1B4242; margin-bottom:28px">
+        <div class="inv-brand" style="display:flex; flex-direction:column; gap:3px">
+            <span class="inv-brand-name" style='font-family:"Jost", sans-serif; font-weight:400; font-size:1.6rem; color:#1B4242; letter-spacing:-0.5px; line-height:1'>SOFTIQ</span>
+            <span class="inv-brand-sub" style="font-size:0.62rem; font-weight:500; letter-spacing:3px; text-transform:uppercase; color:#7DA596">Hlídací pes na nemovitosti</span>
+        </div>
+        <div class="inv-title-block" style="text-align:right" align="right">
+            <div class="inv-title" style='font-family:"Jost", serif; font-size:1.4rem; color:#1B4242; font-weight:600; line-height:1.2'>Faktura</div>
+            <div class="inv-number" style="font-size:0.75rem; color:#7DA596; letter-spacing:1px; margin-top:4px">č. <span th:text="${invoiceNumber}">0000000000</span></div>
+        </div>
+    </div>
+
+    <!-- Parties -->
+    <div class="parties-row" style="display:flex; gap:32px; margin-bottom:28px">
+        <div class="party party-accent" style="flex:1; border-left:3px solid #7DA596; padding-left:12px">
+            <div class="party-label" style="font-size:0.58rem; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:#7DA596; margin-bottom:8px">Odběratel</div>
+            <div class="party-name" th:text="${buyerName}" style='font-family:"Jost", serif; font-size:1rem; color:#1B4242; font-weight:600; margin-bottom:4px'>Martin Švejda</div>
+            <p th:text="${buyerAddress}" style="font-size:0.82rem; color:#3a3a3a; line-height:1.6">Janského 557/13</p>
+            <p th:if="${buyerIC}" style="font-size:0.82rem; color:#3a3a3a; line-height:1.6"><strong>IČ:</strong> <span th:text="${buyerIC}"></span></p>
+            <p th:text="${buyerEmail}" style="font-size:0.82rem; color:#3a3a3a; line-height:1.6">info@softiq.cz</p>
+        </div>
+        <div class="party" style="flex:1">
+            <div class="party-label" style="font-size:0.58rem; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:#7DA596; margin-bottom:8px">Dodavatel</div>
+            <div class="party-name" style='font-family:"Jost", serif; font-size:1rem; color:#1B4242; font-weight:600; margin-bottom:4px'>SOFTIQ.CZ</div>
+            <div class="party-sub" style="font-size:0.7rem; color:#7DA596; font-weight:500; margin-bottom:4px">hlídací pes na nemovitosti</div>
+            <p style="font-size:0.82rem; color:#3a3a3a; line-height:1.6">Martin Švejda</p>
+            <p style="font-size:0.82rem; color:#3a3a3a; line-height:1.6">Janského 557/13, 77900 Olomouc 9</p>
+            <p style="font-size:0.82rem; color:#3a3a3a; line-height:1.6"><strong>IČ:</strong> 21086231 · nejsem plátcem DPH</p>
+            <p style="font-size:0.82rem; color:#3a3a3a; line-height:1.6">info@softiq.cz · +420 773 912 353</p>
+        </div>
+    </div>
+
+    <!-- Payment details -->
+    <div class="section-label" style="font-size:0.58rem; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:#7DA596; margin-bottom:10px">Údaje o platbě</div>
+    <div class="payment-row" style="display:flex; gap:24px; margin-bottom:28px">
+        <div class="payment-item" style="flex:1">
+            <div class="payment-item-label" style="font-size:0.6rem; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:#7DA596; margin-bottom:3px">Datum vystavení</div>
+            <div class="payment-item-value" th:text="${issueDate}" style="font-size:0.88rem; color:#1B4242; font-weight:500">18.06.2025</div>
+        </div>
+        <div class="payment-item" style="flex:1">
+            <div class="payment-item-label" style="font-size:0.6rem; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:#7DA596; margin-bottom:3px">Způsob platby</div>
+            <div class="payment-item-value" style="font-size:0.88rem; color:#1B4242; font-weight:500">Kartou</div>
+        </div>
+    </div>
+
+    <!-- Items table -->
+    <div class="section-label" style="font-size:0.58rem; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:#7DA596; margin-bottom:10px">Položky</div>
+    <table class="inv-table" style="width:100%; border-collapse:collapse; margin-bottom:20px" width="100%">
+        <thead>
+        <tr style="background-color:#1B4242" bgcolor="#1B4242">
+            <th style="padding:10px 14px; font-size:0.62rem; font-weight:600; letter-spacing:2px; text-transform:uppercase; text-align:left; color:#fff" align="left">Kód</th>
+            <th style="padding:10px 14px; font-size:0.62rem; font-weight:600; letter-spacing:2px; text-transform:uppercase; text-align:left; color:#fff" align="left">Popis</th>
+            <th style="padding:10px 14px; font-size:0.62rem; font-weight:600; letter-spacing:2px; text-transform:uppercase; text-align:left; color:#fff" align="left">Počet</th>
+            <th style="padding:10px 14px; font-size:0.62rem; font-weight:600; letter-spacing:2px; text-transform:uppercase; text-align:left; color:#fff" align="left">Celkem</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr style="border-bottom:none">
+            <td th:text="${product.code}" style="padding:12px 14px; font-size:0.85rem; color:#3a3a3a; vertical-align:top" valign="top">AUPR58</td>
+            <td style="padding:12px 14px; font-size:0.85rem; color:#3a3a3a; vertical-align:top" valign="top">
+                měsíční členství<br/>
+                <span th:text="${product.description}">až 3 hlídací psi</span> na nemovitosti
+            </td>
+            <td th:text="${product.quantity}" style="padding:12px 14px; font-size:0.85rem; color:#3a3a3a; vertical-align:top" valign="top">1</td>
+            <td class="total-cell" style='padding:12px 14px; font-size:1rem; color:#1B4242; vertical-align:top; font-family:"Jost", serif; font-weight:600' valign="top">
+                <span th:text="${product.total}">319,00</span> Kč
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Summary -->
+    <div class="inv-summary" style="display:flex; justify-content:flex-end; margin-bottom:32px">
+        <div class="inv-summary-box" style="background:#f0f4f2; border-left:3px solid #1B4242; border-radius:0 8px 8px 0; padding:14px 20px; min-width:220px">
+            <div class="summary-row" style="display:flex; justify-content:space-between; align-items:center; gap:24px">
+                <span class="summary-label" style="font-size:0.72rem; color:#7DA596; font-weight:500">Celkem uhrazeno</span>
+                <span class="summary-value" th:text="${product.total} + ' Kč'" style='font-family:"Jost", serif; font-size:1.2rem; color:#1B4242; font-weight:600'>319,00 Kč</span>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

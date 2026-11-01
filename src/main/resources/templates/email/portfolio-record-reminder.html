@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <title>Připomínka záznamu</title>
+</head>
+<body style="margin:0;background:#f6faf8;font-family:Arial,sans-serif;color:#153f3f;">
+  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#f6faf8;padding:24px 12px;">
+    <tr>
+      <td align="center">
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:560px;background:#ffffff;border-radius:16px;border:1px solid #dfe9e4;overflow:hidden;">
+          <tr>
+            <td style="padding:28px 28px 18px;">
+              <p style="margin:0 0 8px;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#5f7f7a;">SOFTIQ</p>
+              <h1 style="margin:0;font-size:24px;line-height:1.25;color:#153f3f;">Připomínka záznamu</h1>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:0 28px 28px;">
+              <p style="margin:0 0 18px;font-size:15px;line-height:1.6;color:#315b58;">
+                Blíží se důležitý termín u záznamu. Prosím zkontrolujte, jestli je vše v pořádku.
+              </p>
+              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;border-top:1px solid #e6efeb;">
+                <tr>
+                  <td style="padding:12px 0;color:#78908c;font-size:12px;text-transform:uppercase;letter-spacing:0.08em;">Záznam</td>
+                  <td style="padding:12px 0;text-align:right;font-size:14px;color:#153f3f;" th:text="${recordTitle}">Pojištění</td>
+                </tr>
+                <tr>
+                  <td style="padding:12px 0;border-top:1px solid #e6efeb;color:#78908c;font-size:12px;text-transform:uppercase;letter-spacing:0.08em;">Nemovitost</td>
+                  <td style="padding:12px 0;border-top:1px solid #e6efeb;text-align:right;font-size:14px;color:#153f3f;" th:text="${estateName}">Byt</td>
+                </tr>
+                <tr>
+                  <td style="padding:12px 0;border-top:1px solid #e6efeb;color:#78908c;font-size:12px;text-transform:uppercase;letter-spacing:0.08em;">Termín</td>
+                  <td style="padding:12px 0;border-top:1px solid #e6efeb;text-align:right;font-size:14px;color:#153f3f;" th:text="${occurrenceDate}">1. 8. 2026</td>
+                </tr>
+                <tr th:if="${documentCount > 0}">
+                  <td style="padding:12px 0;border-top:1px solid #e6efeb;color:#78908c;font-size:12px;text-transform:uppercase;letter-spacing:0.08em;">Dokumenty</td>
+                  <td style="padding:12px 0;border-top:1px solid #e6efeb;text-align:right;font-size:14px;color:#153f3f;" th:text="${documentCount}">1</td>
+                </tr>
+              </table>
+              <p th:if="${note != null and !#strings.isEmpty(note)}" style="margin:18px 0 0;font-size:13px;line-height:1.6;color:#55706d;" th:text="${note}">Poznámka</p>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:24px 28px;background:linear-gradient(to right, #1B4242, #2d6b5e);color:#d8e9e2;">
+              <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td align="left" style="font-size:13px;letter-spacing:0.15em;text-transform:uppercase;color:#ffffff;">SOFTIQ</td>
+                  <td align="right" style="font-size:11px;color:rgba(255,255,255,0.72);">Portfolio nemovitostí</td>
+                </tr>
+                <tr>
+                  <td colspan="2" style="padding-top:14px;border-top:1px solid rgba(255,255,255,0.12);font-size:11px;line-height:1.5;color:rgba(255,255,255,0.62);">
+                    Odesláno automaticky prostřednictvím SOFTIQ.cz
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

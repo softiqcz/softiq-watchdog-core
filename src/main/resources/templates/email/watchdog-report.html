@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&amp;family=Jost:wght@400;600&amp;family=Playfair+Display:wght@600&amp;display=swap"
+          rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #f0f4f2;
+            font-family: 'Jost', sans-serif;
+            padding: 32px 16px;
+            color: #1a1a1a;
+        }
+
+        .email-wrapper {
+            max-width: 600px;
+            margin: auto;
+        }
+
+        /* ── HEADER ── */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 4px 24px;
+        }
+
+        .brand {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .brand-name {
+            font-family: 'Jost', sans-serif;
+            font-weight: 400;
+            font-size: 1.75rem;
+            color: #1B4242;
+            letter-spacing: -0.5px;
+            line-height: 1;
+        }
+
+        .brand-sub {
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #7DA596;
+        }
+
+        .badge {
+            background-color: #1B4242;
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 6px 14px;
+            border-radius: 100px;
+        }
+
+        /* ── SECTION TITLE ── */
+        .section-title {
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #7DA596;
+            padding: 0 4px 12px;
+        }
+
+        /* ── WATCHDOG GROUP ── */
+        .watchdog-group {
+            margin-bottom: 32px;
+        }
+
+        .watchdog-address {
+            font-family: 'Arial', serif;
+            font-size: 1.15rem;
+            color: #1B4242;
+            padding: 12px 20px;
+            background: #fff;
+            border-left: 3px solid #7DA596;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 12px;
+        }
+
+        /* ── OFFER CARD ── */
+        .offer-card {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 12px;
+            border: 1px solid #e8eeec;
+            transition: box-shadow 0.2s;
+        }
+
+        .offer-card:hover {
+            box-shadow: 0 8px 24px rgba(27, 66, 66, 0.1);
+        }
+
+        .offer-img-wrap {
+            width: 100%;
+            aspect-ratio: 16/9;
+            overflow: hidden;
+            background: #e8eeec;
+        }
+
+        .offer-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            border-radius: 0;
+            transition: transform 0.4s ease;
+        }
+
+        .offer-card:hover .offer-img-wrap img {
+            transform: scale(1.03);
+        }
+
+        .offer-body {
+            padding: 16px 20px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 12px;
+        }
+
+        .offer-info {
+            flex: 1;
+        }
+
+        .offer-header {
+            font-size: 0.975rem;
+            font-weight: 600;
+            color: #1B4242;
+            margin-bottom: 4px;
+            line-height: 1.3;
+        }
+
+        .offer-address {
+            font-size: 0.8rem;
+            color: #7DA596;
+            font-weight: 400;
+        }
+
+        .offer-price {
+            font-family: 'Arial', serif;
+            font-size: 1.1rem;
+            color: #1B4242;
+            white-space: nowrap;
+            font-weight: 600;
+        }
+
+        .offer-link {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* ── DIVIDER ── */
+        .divider {
+            height: 1px;
+            background: linear-gradient(to right, #7DA596, transparent);
+            margin: 8px 0 24px;
+            border: none;
+        }
+
+        /* ── FOOTER ── */
+        .footer {
+            background: linear-gradient(to right, #1B4242, #2d6b5e);
+            border-radius: 16px;
+            padding: 28px 24px 18px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 20px;
+        }
+
+        .footer-col {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .footer-brand {
+            font-family: 'Jost', sans-serif;
+            font-weight: 400;
+            font-size: 1.05rem;
+            color: #fff;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .footer-tagline {
+            font-size: 0.72rem;
+            color: rgba(255, 255, 255, 0.65);
+            line-height: 1.5;
+        }
+
+        .footer-col-title {
+            font-size: 0.58rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.45);
+            margin-bottom: 4px;
+        }
+
+        .footer-col-title.mt {
+            margin-top: 10px;
+        }
+
+        .footer a {
+            color: rgba(255, 255, 255, 0.65);
+            text-decoration: none;
+            font-size: 0.76rem;
+            border-bottom: 1px solid transparent;
+            width: fit-content;
+        }
+
+        .footer a:hover {
+            color: #fff;
+            border-bottom-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .footer-info-row {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+            margin-bottom: 4px;
+        }
+
+        .footer-info-label {
+            font-size: 0.62rem;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .footer-info-value {
+            font-size: 0.76rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .footer-news {
+            background: #7DA596;
+            color: #fff;
+            font-size: 0.55rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-align: center;
+            padding: 2px 6px;
+            border-radius: 100px;
+            vertical-align: middle;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
+            padding-top: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-bottom-brand {
+            font-family: 'Jost', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 400;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .footer-bottom-copy {
+            font-size: 0.65rem;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* ── MOBILE ── */
+        @media (max-width: 480px) {
+            body {
+                padding: 16px 10px;
+            }
+
+            .offer-body {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .brand-name {
+                font-size: 1.4rem;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body bgcolor="#f0f4f2"
+      style='background-color:#f0f4f2; font-family:"Jost", sans-serif; padding:32px 16px; color:#1a1a1a'>
+<div class="email-wrapper" style="max-width:600px; margin:auto">
+
+    <div class="header" style="display:flex; align-items:center; justify-content:space-between; padding:0 4px 24px">
+        <div class="brand" style="display:flex; flex-direction:column; gap:2px">
+            <span class="brand-name"
+                  style='font-family:"Jost", sans-serif; font-weight:400; font-size:1.75rem; color:#1B4242; letter-spacing:-0.5px; line-height:1'>SOFTIQ</span>
+            <span class="brand-sub"
+                  style="font-size:0.7rem; font-weight:500; letter-spacing:3px; text-transform:uppercase; color:#7DA596">Hlídací pes</span>
+        </div>
+        <span bgcolor="#1B4242"
+              class="badge"
+              style="background-color:#1B4242; font-size:0.7rem; font-weight:600; letter-spacing:2px; text-transform:uppercase; padding:6px 14px; border-radius:100px; color:#fff">Nové nabídky</span>
+    </div>
+
+    <p class="section-title"
+       style="font-size:0.65rem; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:#7DA596; padding:0 4px 12px">
+        Vaše sledované lokality</p>
+
+    <th:block th:each="watchdog : ${listWatchDogs}">
+        <div class="watchdog-group" style="margin-bottom:32px">
+            <div class="watchdog-address" style='font-family:"Arial", serif; font-size:1.15rem; color:#1B4242; padding:12px 20px; background:#fff; border-left:3px solid #7DA596; border-radius:0 8px 8px 0; margin-bottom:12px'
+                 th:text="${watchdog.exactAddress}">
+                Praha 9 — Vysočany
+            </div>
+
+            <th:block th:each="newOffer : ${listWatchdogEstates}">
+                <th:block th:if="${newOffer.watchdogEntity == watchdog}">
+                    <a class="offer-link" style="display:block; text-decoration:none; color:inherit"
+                       th:href="${newOffer.offerUrl}">
+                        <div class="offer-card"
+                             style="background:#fff; border-radius:12px; overflow:hidden; margin-bottom:12px; border:1px solid #e8eeec; transition:box-shadow 0.2s">
+                            <div class="offer-img-wrap"
+                                 style="width:100%; aspect-ratio:16/9; overflow:hidden; background:#e8eeec"
+                                 width="100%">
+                                <img alt="Foto nemovitosti" height="100%"
+                                     style="width:100%; height:100%; object-fit:cover; display:block; border-radius:0; transition:transform 0.4s ease"
+                                     th:src="${newOffer.mainPicUrl}" width="100%">
+                            </div>
+                            <div class="offer-body"
+                                 style="padding:16px 20px 20px; display:flex; justify-content:space-between; align-items:flex-end; gap:12px">
+                                <div class="offer-info" style="flex:1">
+                                    <div class="offer-header" style="font-size:0.975rem; font-weight:600; color:#1B4242; margin-bottom:4px; line-height:1.3"
+                                         th:text="${newOffer.header}">
+                                        Prodej bytu 2+kk 60 m²
+                                    </div>
+                                    <div class="offer-address" style="font-size:0.8rem; color:#7DA596; font-weight:400"
+                                         th:text="${newOffer.address}">Praha 9
+                                    </div>
+                                </div>
+                                <div class="offer-price" style='font-family:"Arial", serif; font-size:1.1rem; color:#1B4242; white-space:nowrap; font-weight:600'
+                                     th:with="rawPrice=${newOffer.price}"
+                                     th:text="${rawPrice != null and !rawPrice.isBlank() and rawPrice.matches('^[0-9]+$') ? #numbers.formatInteger(new java.math.BigDecimal(rawPrice), 0, 'WHITESPACE') + ' Kč' : rawPrice}">
+                                    8 950 000 Kč
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </th:block>
+            </th:block>
+        </div>
+        <hr class="divider"
+            height="1"
+            style="height:1px; background:linear-gradient(to right, #7DA596, transparent); margin:8px 0 24px; border:none">
+    </th:block>
+
+    <div class="footer"
+         style="background:linear-gradient(to right, #1B4242, #2d6b5e); border-radius:16px; padding:28px 24px 18px">
+        <div class="footer-grid" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:24px; margin-bottom:20px">
+
+            <!-- Brand col -->
+            <div align="center"
+                 class="footer-col center"
+                 style="display:flex; flex-direction:column; gap:5px; align-items:center; justify-content:center; text-align:center">
+                <div class="footer-brand"
+                     style='font-family:"Jost", sans-serif; font-weight:400; font-size:1.05rem; letter-spacing:0.15em; text-transform:uppercase; margin-bottom:4px; color:#fff'>
+                    SOFTIQ
+                </div>
+                <p class="footer-tagline" style="font-size:0.72rem; color:rgba(255, 255, 255, 0.65); line-height:1.5">
+                    Hlídací pes na nemovitosti</p>
+                <span align="center"
+                      class="footer-news"
+                      style="background:#7DA596; font-size:0.55rem; font-weight:600; letter-spacing:2px; text-transform:uppercase; text-align:center; padding:2px 6px; border-radius:100px; vertical-align:middle; color:#fff" valign="middle">Novinka</span>
+                <span class="footer-tagline"
+                      style="font-size:0.72rem; color:rgba(255, 255, 255, 0.65); line-height:1.5"> Portfolio nemovitostí </span>
+            </div>
+
+            <!-- Nav col -->
+            <div class="footer-col"
+                 style="display:flex; flex-direction:column; gap:5px; align-items:center; justify-content:center">
+                    <span class="footer-info-value" style="font-size:0.76rem; color:rgba(255, 255, 255, 0.8)">
+            Inzeráty můžete prohlížet i na <a class="footer-link" href="https://softiq.cz"
+                                              style="color:rgba(255, 255, 255, 0.65); text-decoration:none; font-size:0.76rem; border-bottom:1px solid transparent; width:fit-content"
+                                              width="fit-content">softiq.cz</a> —
+            seřaďte je dle ceny, data nebo si je uložte do oblíbených.
+       </span>
+            </div>
+
+            <!-- Info col -->
+            <div class="footer-col"
+                 style="display:flex; flex-direction:column; gap:5px; align-items:center; justify-content:center">
+                <div class="footer-info-row" style="display:flex; flex-direction:column; gap:1px; margin-bottom:4px">
+                    <span class="footer-info-value" style="font-size:0.76rem; color:rgba(255, 255, 255, 0.8)">Špatné nabídky? Napište nám na <a
+                            href="mailto:info@softiq.cz"
+                            style="color:rgba(255, 255, 255, 0.65); text-decoration:none; font-size:0.76rem; border-bottom:1px solid transparent; width:fit-content"
+                            width="fit-content"><span class="__cf_email__"
+                                                      data-cfemail="83eaede5ecc3f0ece5f7eaf2ade0f9">info@softiq.cz</span></a></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

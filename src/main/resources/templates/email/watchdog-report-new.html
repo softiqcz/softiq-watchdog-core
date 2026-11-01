@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&amp;family=Jost:wght@400;600&amp;family=Playfair+Display:wght@600&amp;display=swap"
+          rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #f0f4f2;
+            font-family: 'Jost', sans-serif;
+            padding: 32px 16px;
+            color: #1a1a1a;
+        }
+
+        .email-wrapper {
+            max-width: 600px;
+            margin: auto;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 4px 24px;
+        }
+
+        .brand {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .brand-name {
+            font-family: 'Jost', sans-serif;
+            font-weight: 400;
+            font-size: 1.75rem;
+            color: #1B4242;
+            letter-spacing: -0.5px;
+            line-height: 1;
+        }
+
+        .brand-sub {
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #7DA596;
+        }
+
+        .badge {
+            background-color: #1B4242;
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 6px 14px;
+            border-radius: 100px;
+        }
+
+        .section-title {
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #7DA596;
+            padding: 0 4px 12px;
+        }
+
+        .watchdog-group {
+            margin-bottom: 32px;
+        }
+
+        .watchdog-address {
+            font-family: Arial, serif;
+            font-size: 1.15rem;
+            color: #1B4242;
+            padding: 12px 20px;
+            background: #fff;
+            border-left: 3px solid #7DA596;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 12px;
+        }
+
+        .offer-card {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 12px;
+            border: 1px solid #e8eeec;
+        }
+
+        .offer-img-wrap {
+            width: 100%;
+            aspect-ratio: 16/9;
+            overflow: hidden;
+            background: #e8eeec;
+        }
+
+        .offer-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .offer-body {
+            padding: 16px 20px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 12px;
+        }
+
+        .offer-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .offer-header {
+            font-size: 0.975rem;
+            font-weight: 600;
+            color: #1B4242;
+            margin-bottom: 4px;
+            line-height: 1.3;
+        }
+
+        .offer-address {
+            font-size: 0.8rem;
+            color: #7DA596;
+            font-weight: 400;
+        }
+
+        .offer-price {
+            font-family: Arial, serif;
+            font-size: 1.1rem;
+            color: #1B4242;
+            white-space: nowrap;
+            font-weight: 600;
+        }
+
+        .offer-link {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* =========================
+           QUICK ANALYSIS
+        ========================= */
+
+        .quick-analysis {
+            border-top: 1px solid #e8eeec;
+            border-bottom: 1px solid #e8eeec;
+            padding: 16px 20px 18px;
+            margin: 0 0 18px;
+        }
+
+        .quick-analysis-title {
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #7DA596;
+            margin-bottom: 12px;
+        }
+
+        .quick-analysis-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 8px 0;
+            table-layout: fixed;
+        }
+
+        .quick-analysis-table td {
+            background: #f4f7f5;
+            border-radius: 8px;
+            padding: 10px 9px;
+            vertical-align: middle;
+            min-width: 0;
+        }
+
+        .quick-analysis-label {
+            display: block;
+            font-size: 0.62rem;
+            color: #7DA596;
+            margin-bottom: 4px;
+            white-space: nowrap;
+        }
+
+        .quick-analysis-value {
+            display: block;
+            font-family: Arial, serif;
+            font-size: 0.82rem;
+            color: #1B4242;
+            white-space: nowrap;
+            font-weight: 600;
+        }
+
+        /* =========================
+           COMPACT SOFTIQ INDEX
+        ========================= */
+
+        .quick-analysis-index {
+            position: relative;
+        }
+
+        .quick-analysis-index-score {
+            display: block;
+            font-family: Arial, sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            line-height: 1;
+            margin-top: 2px;
+        }
+
+        .quick-analysis-index-bar {
+            position: relative;
+            height: 4px;
+            margin-top: 7px;
+            border-radius: 100px;
+            background: linear-gradient(
+                    to right,
+                    #C65B5B 0%,
+                    #E3A17E 25%,
+                    #D7DEDA 50%,
+                    #8BB49F 75%,
+                    #4F8067 100%
+            );
+        }
+
+        .quick-analysis-index-zero {
+            position: absolute;
+            left: 50%;
+            top: -1px;
+            width: 1px;
+            height: 6px;
+            background: #fff;
+        }
+
+        .quick-analysis-index-marker {
+            position: absolute;
+            top: -2px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #fff;
+            border: 1.5px solid;
+            transform: translateX(-50%);
+            box-shadow: 0 1px 3px rgba(27, 66, 66, 0.15);
+        }
+
+        .quick-analysis-comparison {
+            margin: 0;
+            padding: 11px 0 12px;
+            font-size: 0.72rem;
+            line-height: 1.5;
+            color: #607873;
+        }
+
+        /* =========================
+           EXPANDED SOFTIQ INDEX
+        ========================= */
+
+        .expanded-index {
+            margin: 0 20px 18px;
+            padding: 18px 20px 20px;
+            border-radius: 12px;
+            background: #f4f7f5;
+            border: 1px solid #e3ebe7;
+        }
+
+        .expanded-index-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .expanded-index-title {
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #7DA596;
+            margin-bottom: 4px;
+        }
+
+        .expanded-index-subtitle {
+            font-size: 0.7rem;
+            color: #7A8985;
+            line-height: 1.35;
+        }
+
+        .expanded-index-score {
+            font-family: Arial, sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            line-height: 1;
+            white-space: nowrap;
+        }
+
+        .expanded-index-scale {
+            position: relative;
+        }
+
+        .expanded-index-bar {
+            position: relative;
+            height: 7px;
+            border-radius: 100px;
+            background: linear-gradient(
+                    to right,
+                    #C65B5B 0%,
+                    #E3A17E 25%,
+                    #D7DEDA 50%,
+                    #8BB49F 75%,
+                    #4F8067 100%
+            );
+        }
+
+        .expanded-index-zero {
+            position: absolute;
+            left: 50%;
+            top: -2px;
+            width: 1px;
+            height: 11px;
+            background: #fff;
+        }
+
+        .expanded-index-marker {
+            position: absolute;
+            top: -4px;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: #fff;
+            border: 2px solid;
+            transform: translateX(-50%);
+            box-shadow: 0 1px 4px rgba(27, 66, 66, 0.2);
+        }
+
+        .expanded-index-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 7px;
+        }
+
+        .expanded-index-labels span {
+            font-size: 0.55rem;
+            color: #879590;
+        }
+
+        .expanded-index-description {
+            margin-top: 15px;
+            padding-top: 13px;
+            border-top: 1px solid #e1e9e5;
+            font-size: 0.7rem;
+            color: #607873;
+            line-height: 1.5;
+        }
+
+        .divider {
+            height: 1px;
+            background: linear-gradient(to right, #7DA596, transparent);
+            margin: 8px 0 24px;
+            border: none;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        .footer {
+            background: linear-gradient(to right, #1B4242, #2d6b5e);
+            border-radius: 16px;
+            padding: 28px 24px 20px;
+        }
+
+        .footer-index {
+            padding-bottom: 20px;
+            margin-bottom: 22px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+            text-align: center;
+        }
+
+        .footer-index-title {
+            font-size: 0.58rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #9FC0B5;
+            margin-bottom: 7px;
+        }
+
+        .footer-index-text {
+            font-size: 0.72rem;
+            color: rgba(255, 255, 255, 0.78);
+            line-height: 1.55;
+            max-width: 460px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.25fr 1fr;
+            gap: 24px;
+            align-items: start;
+        }
+
+        .footer-col {
+            min-width: 0;
+            text-align: center;
+        }
+
+        .footer-brand {
+            font-family: 'Jost', sans-serif;
+            font-weight: 400;
+            font-size: 1.05rem;
+            color: #fff;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .footer-tagline {
+            font-size: 0.72rem;
+            color: rgba(255, 255, 255, 0.65);
+            line-height: 1.5;
+        }
+
+        .footer-news {
+            display: inline-block;
+            margin-top: 7px;
+            margin-bottom: 4px;
+            background: #7DA596;
+            color: #fff;
+            font-size: 0.55rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-align: center;
+            padding: 3px 8px;
+            border-radius: 100px;
+        }
+
+        .footer-info {
+            font-size: 0.72rem;
+            color: rgba(255, 255, 255, 0.78);
+            line-height: 1.55;
+        }
+
+        .footer a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+        }
+
+        /* =========================
+           DESKTOP
+        ========================= */
+
+        @media (min-width: 481px) {
+
+            .section-title {
+                font-size: 0.7rem;
+            }
+
+            .watchdog-address {
+                font-size: 1.2rem;
+            }
+
+            .offer-header {
+                font-size: 1.05rem;
+            }
+
+            .offer-address {
+                font-size: 0.85rem;
+            }
+
+            .offer-price {
+                font-size: 1.18rem;
+            }
+
+            .quick-analysis-title {
+                font-size: 0.65rem;
+            }
+
+            .quick-analysis-label {
+                font-size: 0.68rem;
+            }
+
+            .quick-analysis-value {
+                font-size: 0.92rem;
+            }
+
+            .quick-analysis-comparison {
+                font-size: 0.78rem;
+            }
+
+            .quick-analysis-index-score {
+                font-size: 1.05rem;
+            }
+
+            .expanded-index-title {
+                font-size: 0.68rem;
+            }
+
+            .expanded-index-subtitle {
+                font-size: 0.75rem;
+            }
+
+            .expanded-index-score {
+                font-size: 2rem;
+            }
+
+            .expanded-index-description {
+                font-size: 0.75rem;
+            }
+
+            .footer-index-title {
+                font-size: 0.62rem;
+            }
+
+            .footer-index-text {
+                font-size: 0.78rem;
+            }
+
+            .footer-tagline {
+                font-size: 0.78rem;
+            }
+
+            .footer-info {
+                font-size: 0.78rem;
+            }
+
+            .footer-info a {
+                font-size: 0.78rem;
+            }
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 480px) {
+
+            .quick-analysis {
+                padding: 10px 6px 12px;
+                margin: 0 0 12px;
+            }
+
+            .quick-analysis-title {
+                margin-bottom: 8px;
+            }
+
+            .quick-analysis-table {
+                border-spacing: 4px 4px;
+            }
+
+            .quick-analysis-table td {
+                padding: 8px 5px;
+            }
+
+            .quick-analysis-label {
+                font-size: 0.52rem;
+                margin-bottom: 3px;
+                white-space: nowrap;
+            }
+
+            .quick-analysis-value {
+                font-size: 0.64rem;
+                white-space: nowrap;
+                letter-spacing: -0.2px;
+            }
+
+            .quick-analysis-index-score {
+                font-size: 0.9rem;
+            }
+
+            .quick-analysis-index-bar {
+                width: 100%;
+                height: 3px;
+                margin-top: 6px;
+            }
+
+            .quick-analysis-index-marker {
+                width: 7px;
+                height: 7px;
+                top: -2px;
+            }
+
+            .quick-analysis-index-zero {
+                height: 5px;
+            }
+
+            .expanded-index {
+                margin: 0 12px 16px;
+                padding: 15px 14px 17px;
+            }
+
+            .expanded-index-title {
+                font-size: 0.58rem;
+            }
+
+            .expanded-index-subtitle {
+                font-size: 0.64rem;
+            }
+
+            .expanded-index-score {
+                font-size: 1.5rem;
+            }
+
+            .expanded-index-description {
+                font-size: 0.64rem;
+            }
+
+            .expanded-index-labels span {
+                font-size: 0.48rem;
+            }
+        }
+    </style>
+</head>
+
+<body bgcolor="#f0f4f2"
+      style='background-color:#f0f4f2; font-family:"Jost", sans-serif; padding:32px 16px; color:#1a1a1a'>
+
+<div class="email-wrapper"
+     style="max-width:600px; margin:auto">
+
+    <!-- HEADER -->
+
+    <div class="header"
+         style="display:flex; align-items:center; justify-content:space-between; padding:0 4px 24px">
+
+        <div class="brand"
+             style="display:flex; flex-direction:column; gap:2px">
+
+            <span class="brand-name"
+                  style='font-family:"Jost", sans-serif; font-weight:400; font-size:1.75rem; color:#1B4242; letter-spacing:-0.5px; line-height:1'>
+                SOFTIQ
+            </span>
+
+            <span class="brand-sub"
+                  style="font-size:0.7rem; font-weight:500; letter-spacing:3px; text-transform:uppercase; color:#7DA596">
+                Hlídací pes
+            </span>
+
+        </div>
+
+        <span bgcolor="#1B4242"
+              class="badge"
+              style="background-color:#1B4242; font-size:0.7rem; font-weight:600; letter-spacing:2px; text-transform:uppercase; padding:6px 14px; border-radius:100px; color:#fff">
+            Nové nabídky
+        </span>
+
+    </div>
+
+    <!-- SECTION TITLE -->
+
+    <p class="section-title"
+       style="font-size:0.65rem; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:#7DA596; padding:0 4px 12px">
+        Vaše sledované lokality
+    </p>
+
+    <!-- WATCHDOGS -->
+
+    <th:block th:each="watchdog : ${listWatchDogs}"
+              th:with="analysis=${watchdogResultAnalyses != null
+                  ? watchdogResultAnalyses[watchdog.id]
+                  : null}">
+
+        <div class="watchdog-group"
+             style="margin-bottom:32px">
+
+            <div class="watchdog-address"
+                 style='font-family:"Arial", serif; font-size:1.15rem; color:#1B4242; padding:12px 20px; background:#fff; border-left:3px solid #7DA596; border-radius:0 8px 8px 0; margin-bottom:12px'
+                 th:text="${watchdog.exactAddress}">
+                Praha 9 — Vysočany
+            </div>
+
+            <th:block th:each="newOffer : ${listWatchdogEstates}">
+
+                <th:block th:if="${newOffer.watchdogEntity == watchdog}">
+
+                    <th:block th:with="
+                        quickAnalysisAvailable=${newOffer.pricePerSquareMeter != null
+                            and newOffer.squareMeter != null
+                            and newOffer.price != null
+                            and newOffer.price.matches('.*[0-9].*')
+                            and analysis != null
+                            and analysis.averagePricePerSquareMeters != null
+                            and analysis.averageSquareMeters != null
+                            and analysis.averagePrice != null
+                            and newOffer.softiqIndex != null},
+
+                        totalOfferCount=${listWatchdogEstates != null ? listWatchdogEstates.size() : 0},
+
+                        indexPosition=${newOffer.softiqIndex != null
+                            ? newOffer.softiqIndex.add(new java.math.BigDecimal('10'))
+                                .divide(new java.math.BigDecimal('20'), 4, T(java.math.RoundingMode).HALF_UP)
+                                .multiply(new java.math.BigDecimal('100'))
+                            : 50}
+                    ">
+
+                        <div class="offer-card"
+                             style="background:#fff; border-radius:12px; overflow:hidden; margin-bottom:12px; border:1px solid #e8eeec">
+
+                            <a class="offer-link"
+                               style="display:block; text-decoration:none; color:inherit"
+                               th:href="${newOffer.offerUrl}">
+
+                                <!-- IMAGE -->
+
+                                <div class="offer-img-wrap"
+                                     style="width:100%; aspect-ratio:16/9; overflow:hidden; background:#e8eeec">
+
+                                    <img alt="Foto nemovitosti"
+                                         height="100%"
+                                         style="width:100%; height:100%; object-fit:cover; display:block"
+                                         th:src="${newOffer.mainPicUrl}"
+                                         width="100%">
+
+                                </div>
+
+                                <!-- OFFER INFO -->
+
+                                <div class="offer-body"
+                                     style="padding:16px 20px 20px; display:flex; justify-content:space-between; align-items:flex-end; gap:12px">
+
+                                    <div class="offer-info"
+                                         style="flex:1; min-width:0">
+
+                                        <div class="offer-header"
+                                             style="font-size:0.975rem; font-weight:600; color:#1B4242; margin-bottom:4px; line-height:1.3"
+                                             th:text="${newOffer.header}">
+                                            Prodej bytu 2+kk 60 m²
+                                        </div>
+
+                                        <div class="offer-address"
+                                             style="font-size:0.8rem; color:#7DA596; font-weight:400"
+                                             th:text="${newOffer.address}">
+                                            Praha 9
+                                        </div>
+
+                                    </div>
+
+                                    <!-- NORMAL PRICE -->
+
+                                    <div class="offer-price"
+                                         style='font-family:"Arial", serif; font-size:1.1rem; color:#1B4242; white-space:nowrap; font-weight:600'
+                                         th:if="${!quickAnalysisAvailable}"
+                                         th:text="${rawPrice != null and !rawPrice.isBlank() and rawPrice.matches('^[0-9]+$')
+                                             ? (new java.math.BigDecimal(rawPrice).compareTo(T(java.math.BigDecimal).ZERO) == 0
+                                                 ? 'Neuvedeno'
+                                                 : #numbers.formatInteger(new java.math.BigDecimal(rawPrice), 0, 'WHITESPACE') + ' Kč')
+                                             : rawPrice}"
+                                         th:with="rawPrice=${newOffer.price}">
+                                        8 950 000 Kč
+                                    </div>
+
+                                </div>
+
+                            </a>
+
+                        <!-- QUICK ANALYSIS -->
+
+                        <th:block th:if="${quickAnalysisAvailable}"
+                                  th:with="
+                                             pricePerM2=${new java.math.BigDecimal(newOffer.pricePerSquareMeter)},
+                                             squareMeters=${new java.math.BigDecimal(newOffer.squareMeter)},
+                                             price=${new java.math.BigDecimal(newOffer.price.replaceAll('[^0-9]', ''))},
+                                             pricePerM2Diff=${pricePerM2.subtract(analysis.averagePricePerSquareMeters).divide(analysis.averagePricePerSquareMeters, 4, T(java.math.RoundingMode).HALF_UP).multiply(10)},
+                                             squareMetersDiff=${squareMeters.subtract(analysis.averageSquareMeters).divide(analysis.averageSquareMeters, 4, T(java.math.RoundingMode).HALF_UP).multiply(10)},
+                                             priceDiff=${price.subtract(analysis.averagePrice).divide(analysis.averagePrice, 4, T(java.math.RoundingMode).HALF_UP).multiply(10)}
+                                          ">
+
+                            <div class="quick-analysis"
+                                 style="border-top:1px solid #e8eeec; border-bottom:1px solid #e8eeec; padding:8px 10px 9px; margin:0 0 18px">
+
+                                <table class="quick-analysis-table"
+                                       cellpadding="0"
+                                       cellspacing="0"
+                                       border="0"
+                                       width="100%"
+                                       style="width:100%; border-collapse:separate; border-spacing:8px 8px; table-layout:fixed">
+
+                                    <tr>
+
+                                        <!-- TOTAL PRICE -->
+
+                                        <td width="50%"
+                                            style="background:#f4f7f5; border-radius:8px; padding:10px 9px; vertical-align:middle">
+
+                                                    <span class="quick-analysis-label"
+                                                          style="display:block; font-size:0.62rem; color:#7DA596; margin-bottom:4px; white-space:nowrap">
+                                                        Cena
+                                                    </span>
+
+                                            <span class="quick-analysis-value"
+                                                  style="display:block; font-family:Arial,serif; font-size:0.82rem; color:#1B4242; white-space:nowrap; font-weight:600"
+                                                  th:text="${#numbers.formatInteger(price, 0, 'WHITESPACE') + ' Kč'}">
+                                                        3 650 004 Kč
+                                            </span>
+
+                                        </td>
+
+                                        <!-- PRICE / M2 -->
+
+                                        <td width="50%"
+                                            style="background:#f4f7f5; border-radius:8px; padding:10px 9px; vertical-align:middle">
+
+                                                    <span class="quick-analysis-label"
+                                                          style="display:block; font-size:0.62rem; color:#7DA596; margin-bottom:4px; white-space:nowrap">
+                                                        Cena za m²
+                                                    </span>
+
+                                            <span class="quick-analysis-value"
+                                                  style="display:block; font-family:Arial,serif; font-size:0.82rem; color:#1B4242; white-space:nowrap; font-weight:600"
+                                                  th:text="${#numbers.formatInteger(pricePerM2, 0, 'WHITESPACE') + ' Kč'}">
+                                                        68 868 Kč
+                                                    </span>
+
+                                        </td>
+
+                                    </tr>
+
+                                    <tr>
+
+                                        <!-- AREA -->
+
+                                        <td width="50%"
+                                            style="background:#f4f7f5; border-radius:8px; padding:10px 9px; vertical-align:middle">
+
+                                                    <span class="quick-analysis-label"
+                                                          style="display:block; font-size:0.62rem; color:#7DA596; margin-bottom:4px; white-space:nowrap">
+                                                        Plocha
+                                                    </span>
+
+                                            <span class="quick-analysis-value"
+                                                  style="display:block; font-family:Arial,serif; font-size:0.82rem; color:#1B4242; white-space:nowrap; font-weight:600"
+                                                  th:text="${newOffer.squareMeter + ' m²'}">
+                                                        53 m²
+                                                    </span>
+
+                                        </td>
+
+                                        <!-- SOFTIQ INDEX -->
+
+                                        <th:block th:if="${totalOfferCount > 1}">
+
+                                            <td width="50%"
+                                                class="quick-analysis-index"
+                                                style="position:relative; background:#f4f7f5; border-radius:8px; padding:10px 9px; vertical-align:middle">
+
+                                                        <span class="quick-analysis-label"
+                                                              style="display:block; font-size:0.62rem; color:#7DA596; margin-bottom:4px; white-space:nowrap">
+                                                            SOFTIQ INDEX
+                                                        </span>
+
+                                                <span class="quick-analysis-index-score"
+                                                      style="display:block; font-family:Arial,sans-serif; font-size:1rem; font-weight:700; line-height:1; margin-top:2px"
+                                                      th:style="${'display:block;font-family:Arial,sans-serif;font-size:1rem;font-weight:700;line-height:1;margin-top:2px;color:'
+                                                              + (newOffer.softiqIndex >= 1.5 ? '#4F8067'
+                                                              : newOffer.softiqIndex >= -1.5 ? '#697875'
+                                                              : '#B64F4F')}"
+                                                      th:text="${newOffer.softiqIndex.setScale(0, T(java.math.RoundingMode).HALF_UP)}">
+                                                            7
+                                                        </span>
+
+                                                <div class="quick-analysis-index-bar"
+                                                     style="position:relative; height:4px; margin-top:7px; border-radius:100px; background:linear-gradient(to right,#C65B5B 0%,#E3A17E 25%,#D7DEDA 50%,#8BB49F 75%,#4F8067 100%)">
+
+                                                    <div class="quick-analysis-index-zero"
+                                                         style="position:absolute; left:50%; top:-1px; width:1px; height:6px; background:#fff">
+                                                    </div>
+
+                                                    <!-- FIXED MARKER POSITION -->
+
+                                                    <div class="quick-analysis-index-marker"
+                                                         th:style="${'position:absolute;top:-2px;width:8px;height:8px;border-radius:50%;background:#fff;border:1.5px solid;transform:translateX(-50%);box-shadow:0 1px 3px rgba(27,66,66,0.15);left:'
+                                                                    + indexPosition
+                                                                    + '%;border-color:'
+                                                                    + (newOffer.softiqIndex >= 1.5 ? '#4F8067'
+                                                                    : newOffer.softiqIndex >= -1.5 ? '#697875'
+                                                                    : '#C65B5B')
+                                                                    + ';'}">
+                                                    </div>
+
+                                                </div>
+
+                                            </td>
+
+                                        </th:block>
+
+                                    </tr>
+
+                                </table>
+
+                                <!-- COMPARISON -->
+
+                                <div class="quick-analysis-comparison"
+                                     style="margin:0; padding:11px 0 12px; font-size:0.72rem; line-height:1.5; color:#607873"
+                                     th:text="${newOffer.comparisonText}">
+                                    Cena za m² odpovídá průměru v oblasti, plochou odpovídá průměru.
+                                </div>
+
+                            </div>
+
+                            <!-- SINGLE OFFER: EXPANDED INDEX -->
+
+                            <th:block th:if="${totalOfferCount == 1}">
+
+                                <div class="expanded-index"
+                                     style="margin:0 20px 18px; padding:18px 20px 20px; border-radius:12px; background:#f4f7f5; border:1px solid #e3ebe7">
+
+                                    <div class="expanded-index-header"
+                                         style="display:flex; justify-content:space-between; align-items:center; gap:16px; margin-bottom:16px">
+
+                                        <div>
+
+                                            <div class="expanded-index-title"
+                                                 style="font-size:0.65rem; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:#7DA596; margin-bottom:4px">
+                                                SOFTIQ INDEX
+                                            </div>
+
+                                            <div class="expanded-index-subtitle"
+                                                 style="font-size:0.7rem; color:#7A8985; line-height:1.35">
+                                                Atraktivita nabídky vůči sledovanému trhu
+                                            </div>
+
+                                        </div>
+
+                                        <span class="expanded-index-score"
+                                              style="font-family:Arial,sans-serif; font-size:1.8rem; font-weight:700; line-height:1; white-space:nowrap"
+                                              th:style="${'font-family:Arial,sans-serif;font-size:1.8rem;font-weight:700;line-height:1;white-space:nowrap;color:'
+                                                          + (newOffer.softiqIndex >= 1.5 ? '#4F8067'
+                                                          : newOffer.softiqIndex >= -1.5 ? '#697875'
+                                                          : '#B64F4F')}"
+                                              th:text="${newOffer.softiqIndex.setScale(0, T(java.math.RoundingMode).HALF_UP)}">
+                                                    7
+                                                </span>
+
+                                    </div>
+
+                                    <div class="expanded-index-scale">
+
+                                        <div class="expanded-index-bar">
+
+                                            <div class="expanded-index-zero"></div>
+
+                                            <!-- FIXED MARKER POSITION -->
+
+                                            <div class="expanded-index-marker"
+                                                 th:style="${'left:'
+                                                            + indexPosition
+                                                            + '%;border-color:'
+                                                            + (newOffer.softiqIndex >= 1.5 ? '#4F8067'
+                                                            : newOffer.softiqIndex >= -1.5 ? '#697875'
+                                                            : '#C65B5B')
+                                                            + ';'}">
+                                            </div>
+
+                                        </div>
+
+                                        <div class="expanded-index-labels">
+
+                                            <span>−10 nevýhodná</span>
+
+                                            <span>0 průměr</span>
+
+                                            <span>+10 atraktivní</span>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </th:block>
+
+                        </th:block>
+
+        </div>
+
+    </th:block>
+
+    </th:block>
+
+    </th:block>
+
+</div>
+
+<hr class="divider"
+    height="1"
+    style="height:1px; background:linear-gradient(to right, #7DA596, transparent); margin:8px 0 24px; border:none">
+
+</th:block>
+
+<!-- FOOTER -->
+
+<div class="footer"
+     style="background:linear-gradient(to right, #1B4242, #2d6b5e); border-radius:16px; padding:28px 24px 20px">
+
+    <div class="footer-index"
+         style="padding-bottom:20px; margin-bottom:22px; border-bottom:1px solid rgba(255,255,255,0.12); text-align:center">
+
+        <div class="footer-index-title"
+             style="font-size:0.58rem; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:#9FC0B5; margin-bottom:7px">
+            SOFTIQ INDEX
+        </div>
+
+        <div class="footer-index-text"
+             style="font-size:0.72rem; color:rgba(255,255,255,0.78); line-height:1.55; max-width:520px; margin:0 auto 14px">
+
+            Hodnotí nemovitost podle toho, jak moc je vhodná k investici.
+            Index se pohybuje od <strong style="color:#fff; font-weight:500">-10 do +10</strong>.
+
+        </div>
+
+        <div style="font-size:0.68rem; color:rgba(255,255,255,0.72); line-height:1.5; max-width:520px; margin:0 auto; text-align:left">
+
+            <div style="margin-bottom:8px">
+                <strong style="color:#E3A17E; font-weight:500">-10 až -1:</strong>
+                Nízký potenciál pro návratnost investice.
+            </div>
+
+            <div style="margin-bottom:8px">
+                <strong style="color:#D7DEDA; font-weight:500">-1 až +1:</strong>
+                Nemovitosti s omezeným investičním potenciálem, nepřinášejí dostatečnou návratnost.
+            </div>
+
+            <div>
+                <strong style="color:#8BB49F; font-weight:500">+1 až +10:</strong>
+                Vhodné k rekonstrukci s velkým potenciálem pro vysokou návratnost.
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="footer-grid"
+         style="display:grid; grid-template-columns:1fr 1.25fr 1fr; gap:24px; align-items:start">
+
+        <div align="center"
+             class="footer-col"
+             style="min-width:0; text-align:center">
+
+            <div class="footer-brand"
+                 style='font-family:"Jost", sans-serif; font-weight:400; font-size:1.05rem; letter-spacing:0.25em; text-transform:uppercase; margin-bottom:6px; color:#fff'>
+                SOFTIQ
+            </div>
+
+            <p class="footer-tagline"
+               style="font-size:0.72rem; color:rgba(255,255,255,0.65); line-height:1.5">
+                Hlídací pes na nemovitosti
+            </p>
+
+            <span class="footer-news"
+                  style="display:inline-block; margin-top:7px; margin-bottom:4px; background:#7DA596; font-size:0.55rem; font-weight:600; letter-spacing:2px; text-transform:uppercase; text-align:center; padding:3px 8px; border-radius:100px; color:#fff">
+                    Novinka
+                </span>
+
+            <p class="footer-tagline"
+               style="font-size:0.72rem; color:rgba(255,255,255,0.65); line-height:1.5">
+                Portfolio nemovitostí
+            </p>
+
+        </div>
+
+        <div class="footer-col"
+             style="min-width:0; text-align:center">
+
+            <div class="footer-info"
+                 style="font-size:0.72rem; color:rgba(255,255,255,0.78); line-height:1.55">
+
+                Inzeráty můžete prohlížet i na
+
+                <a href="https://softiq.cz"
+                   style="color:rgba(255,255,255,0.9); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.25)">
+                    softiq.cz
+                </a>
+
+                — zobrazte si analýzu, seřaďte je dle ceny, data nebo si je uložte do oblíbených.
+
+            </div>
+
+        </div>
+
+        <div class="footer-col"
+             style="min-width:0; text-align:center">
+
+            <div class="footer-info"
+                 style="font-size:0.72rem; color:rgba(255,255,255,0.78); line-height:1.55">
+
+                Špatné nabídky?
+
+                <br>
+
+                Napište nám na
+
+                <a href="mailto:info@softiq.cz"
+                   style="color:rgba(255,255,255,0.9); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.25)">
+                    info@softiq.cz
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+</body>
+</html>

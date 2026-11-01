@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&amp;family=Jost:wght@400;600&amp;family=Playfair+Display:wght@600&amp;display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background-color: #f0f4f2; font-family: 'Jost', sans-serif; padding: 32px 16px; color: #1a1a1a; }
+        .email-wrapper { max-width: 600px; margin: auto; }
+        .header { display: flex; align-items: center; justify-content: space-between; padding: 0 4px 24px; }
+        .brand { display: flex; flex-direction: column; gap: 2px; }
+        .brand-name { font-family: 'Jost', sans-serif; font-weight: 400; font-size: 1.75rem; color: #1B4242; letter-spacing: -0.5px; line-height: 1; }
+        .brand-sub { font-size: 0.7rem; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; color: #7DA596; }
+        .badge { background-color: #1B4242; color: #fff; font-size: 0.7rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; padding: 6px 14px; border-radius: 100px; }
+        .section-title { font-size: 0.65rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: #7DA596; padding: 0 4px 12px; }
+        .content-card { background: #fff; border-radius: 12px; border: 1px solid #e8eeec; margin-bottom: 12px; padding: 24px 24px 28px; }
+        .content-card p { font-size: 0.9rem; color: #3a3a3a; line-height: 1.65; margin-bottom: 12px; }
+        .content-card p:last-child { margin-bottom: 0; }
+        .content-card a { color: #7DA596; text-decoration: none; border-bottom: 1px solid #c5ddd7; }
+        .info-block { background-color: #f0f4f2; border-left: 3px solid #7DA596; border-radius: 0 8px 8px 0; padding: 14px 20px; margin-top: 16px; }
+        .info-block p { font-size: 0.85rem; color: #3a3a3a; margin: 0; line-height: 1.6; }
+        .message-block { background-color: #eaf4f0; border-left: 3px solid #1B4242; border-radius: 0 8px 8px 0; padding: 14px 20px; margin-top: 12px; }
+        .message-block p { font-size: 0.9rem; color: #1B4242; margin: 0; line-height: 1.65; white-space: pre-line; }
+        .muted-label { color: #7a8782; font-size: 0.76rem; line-height: 1.5; margin: 18px 0 8px; }
+        .detail-list { border: 1px solid #e8eeec; border-radius: 8px; overflow: hidden; margin-top: 12px; }
+        .detail-row { display: grid; grid-template-columns: 130px 1fr; border-bottom: 1px solid #e8eeec; }
+        .detail-row:last-child { border-bottom: none; }
+        .detail-label { background-color: #f0f4f2; color: #7DA596; font-size: 0.68rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; padding: 12px 14px; }
+        .detail-value { color: #1B4242; font-size: 0.9rem; line-height: 1.5; padding: 12px 14px; word-break: break-word; }
+        .divider { height: 1px; background: linear-gradient(to right, #7DA596, transparent); margin: 8px 0 24px; border: none; }
+        .footer { background: linear-gradient(to right, #1B4242, #2d6b5e); border-radius: 16px; padding: 28px 24px 18px; }
+        .footer-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; margin-bottom: 20px; }
+        .footer-col { display: flex; flex-direction: column; gap: 5px; align-items: center; justify-content: center; }
+        .center { text-align: center; }
+        .footer-brand { font-family: 'Jost', sans-serif; font-weight: 400; font-size: 1.05rem; color: #fff; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 4px; }
+        .footer-tagline { font-size: 0.72rem; color: rgba(255,255,255,0.65); line-height: 1.5; }
+        .footer-news { background: #7DA596; color: #fff; font-size: 0.55rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; text-align: center; padding: 2px 6px; border-radius: 100px; }
+        .footer a { color: rgba(255,255,255,0.65); text-decoration: none; font-size: 0.76rem; border-bottom: 1px solid transparent; width: fit-content; }
+        .footer a:hover { color: #fff; border-bottom-color: rgba(255,255,255,0.4); }
+        .footer-info-value { font-size: 0.76rem; color: rgba(255,255,255,0.8); }
+        .footer-info-row { display: flex; flex-direction: column; gap: 1px; margin-bottom: 4px; }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.12); padding-top: 14px; display: flex; justify-content: space-between; align-items: center; }
+        .footer-bottom-brand { font-family: 'Jost', sans-serif; font-size: 0.65rem; font-weight: 400; letter-spacing: 3px; text-transform: uppercase; color: #fff; text-decoration: none; }
+        .footer-bottom-copy { font-size: 0.65rem; color: rgba(255,255,255,0.4); }
+        @media (max-width: 480px) { body { padding: 16px 10px; } .brand-name { font-size: 1.4rem; } .detail-row { grid-template-columns: 1fr; } .footer-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body style='background-color:#f0f4f2; font-family:"Jost", sans-serif; padding:32px 16px; color:#1a1a1a' bgcolor="#f0f4f2">
+<div class="email-wrapper" style="max-width:600px; margin:auto">
+
+    <div class="header" style="display:flex; align-items:center; justify-content:space-between; padding:0 4px 24px">
+        <div class="brand" style="display:flex; flex-direction:column; gap:2px">
+            <span class="brand-name" style='font-family:"Jost", sans-serif; font-weight:400; font-size:1.75rem; color:#1B4242; letter-spacing:-0.5px; line-height:1'>SOFTIQ</span>
+            <span class="brand-sub" style="font-size:0.7rem; font-weight:500; letter-spacing:3px; text-transform:uppercase; color:#7DA596">Kontaktní formulář</span>
+        </div>
+        <span class="badge" style="background-color:#1B4242; font-size:0.7rem; font-weight:600; letter-spacing:2px; text-transform:uppercase; padding:6px 14px; border-radius:100px; color:#fff" bgcolor="#1B4242">Nová zpráva</span>
+    </div>
+
+    <p class="section-title" style="font-size:0.65rem; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:#7DA596; padding:0 4px 12px">Poptávka z webu</p>
+
+    <div class="content-card" style="background:#fff; border-radius:12px; border:1px solid #e8eeec; margin-bottom:12px; padding:24px 24px 28px">
+        <p style="font-size:0.9rem; color:#3a3a3a; line-height:1.65; margin-bottom:12px">Na webu byl odeslán nový kontaktní formulář.</p>
+
+        <div class="detail-list" style="border:1px solid #e8eeec; border-radius:8px; overflow:hidden; margin-top:12px">
+            <div class="detail-row" style="display:grid; grid-template-columns:130px 1fr; border-bottom:1px solid #e8eeec">
+                <div class="detail-label" style="background-color:#f0f4f2; color:#7DA596; font-size:0.68rem; font-weight:600; letter-spacing:2px; text-transform:uppercase; padding:12px 14px" bgcolor="#f0f4f2">Jméno</div>
+                <div class="detail-value" th:text="${contactRequest.clientName}" style="color:#1B4242; font-size:0.9rem; line-height:1.5; padding:12px 14px; word-break:break-word">Frodo Pytlík</div>
+            </div>
+            <div class="detail-row" style="display:grid; grid-template-columns:130px 1fr; border-bottom:1px solid #e8eeec">
+                <div class="detail-label" style="background-color:#f0f4f2; color:#7DA596; font-size:0.68rem; font-weight:600; letter-spacing:2px; text-transform:uppercase; padding:12px 14px" bgcolor="#f0f4f2">E-mail</div>
+                <div class="detail-value" style="color:#1B4242; font-size:0.9rem; line-height:1.5; padding:12px 14px; word-break:break-word">
+                    <a th:href="${'mailto:' + contactRequest.clientEmail}" th:text="${contactRequest.clientEmail}" href="mailto:frodo@shire.com" style="color:#1B4242; text-decoration:none; border-bottom:1px solid #c5ddd7">frodo@shire.com</a>
+                </div>
+            </div>
+            <div class="detail-row" style="display:grid; grid-template-columns:130px 1fr">
+                <div class="detail-label" style="background-color:#f0f4f2; color:#7DA596; font-size:0.68rem; font-weight:600; letter-spacing:2px; text-transform:uppercase; padding:12px 14px" bgcolor="#f0f4f2">Odesláno</div>
+                <div class="detail-value" th:text="${contactRequest.timestamp != null ? #dates.format(contactRequest.timestamp, 'd.M.yyyy H:mm:ss') : '-'}" style="color:#1B4242; font-size:0.9rem; line-height:1.5; padding:12px 14px; word-break:break-word">27.9.2025 14:35:00</div>
+            </div>
+        </div>
+
+        <p class="muted-label" style="color:#7a8782; font-size:0.76rem; line-height:1.5; margin:18px 0 8px">Zpráva od návštěvníka</p>
+        <div class="message-block" style="background-color:#eaf4f0; border-left:3px solid #1B4242; border-radius:0 8px 8px 0; padding:14px 20px; margin-top:12px" bgcolor="#eaf4f0">
+            <p th:text="${contactRequest.message}" style="font-size:0.9rem; color:#1B4242; line-height:1.65; margin-bottom:0; margin:0; white-space:pre-line">Dobrý den, měl bych zájem o výše zmíněný web. Bude to blog o cestování. Pytlik.</p>
+        </div>
+
+        <p th:if="${hasOtherFields}" class="muted-label" style="color:#7a8782; font-size:0.76rem; line-height:1.5; margin:18px 0 8px">Další informace z formuláře</p>
+        <div th:if="${hasOtherFields}" class="detail-list" style="border:1px solid #e8eeec; border-radius:8px; overflow:hidden; margin-top:12px">
+            <div th:each="field : ${otherFields}" class="detail-row" style="display:grid; grid-template-columns:130px 1fr; border-bottom:1px solid #e8eeec">
+                <div class="detail-label" th:text="${field.key}" style="background-color:#f0f4f2; color:#7DA596; font-size:0.68rem; font-weight:600; letter-spacing:2px; text-transform:uppercase; padding:12px 14px" bgcolor="#f0f4f2">Typ</div>
+                <div class="detail-value" th:text="${field.value}" style="color:#1B4242; font-size:0.9rem; line-height:1.5; padding:12px 14px; word-break:break-word">dvoupatrový rodinný dům</div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="divider" style="height:1px; background:linear-gradient(to right, #7DA596, transparent); margin:8px 0 24px; border:none" height="1">
+
+    <div class="footer" style="background:linear-gradient(to right, #1B4242, #2d6b5e); border-radius:16px; padding:28px 24px 18px">
+        <div class="footer-grid" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:24px; margin-bottom:20px">
+            <div class="footer-col center" style="display:flex; flex-direction:column; gap:5px; align-items:center; justify-content:center; text-align:center" align="center">
+                <div class="footer-brand" style='font-family:"Jost", sans-serif; font-weight:400; font-size:1.05rem; letter-spacing:0.15em; text-transform:uppercase; margin-bottom:4px; color:#fff'>SOFTIQ</div>
+                <p class="footer-tagline" style="font-size:0.72rem; color:rgba(255, 255, 255, 0.65); line-height:1.5">Hlídací pes na nemovitosti</p>
+                <span class="footer-news" style="background:#7DA596; font-size:0.55rem; font-weight:600; letter-spacing:2px; text-transform:uppercase; text-align:center; padding:2px 6px; border-radius:100px; color:#fff" align="center">Novinka</span>
+                <span class="footer-tagline" style="font-size:0.72rem; color:rgba(255, 255, 255, 0.65); line-height:1.5">Portfolio nemovitostí</span>
+            </div>
+            <div class="footer-col" style="display:flex; flex-direction:column; gap:5px; align-items:center; justify-content:center">
+                <span class="footer-info-value" style="font-size:0.76rem; color:rgba(255, 255, 255, 0.8)">Zpráva byla odeslána přes kontaktní formulář na <a href="https://softiq.cz" style="color:rgba(255, 255, 255, 0.65); text-decoration:none; font-size:0.76rem; border-bottom:1px solid transparent; width:fit-content" width="fit-content">softiq.cz</a>.</span>
+            </div>
+            <div class="footer-col" style="display:flex; flex-direction:column; gap:5px; align-items:center; justify-content:center">
+                <div class="footer-info-row" style="display:flex; flex-direction:column; gap:1px; margin-bottom:4px">
+                    <span class="footer-info-value" style="font-size:0.76rem; color:rgba(255, 255, 255, 0.8)">Odpovězte přímo na e-mail uvedený výše, nebo zprávu zpracujte v administraci.</span>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom" style="border-top:1px solid rgba(255, 255, 255, 0.12); padding-top:14px; display:flex; justify-content:space-between; align-items:center">
+            <a class="footer-bottom-brand" href="https://softiq.cz" style='font-family:"Jost", sans-serif; font-size:0.76rem; font-weight:400; letter-spacing:3px; text-transform:uppercase; text-decoration:none; color:#fff; border-bottom:1px solid transparent; width:fit-content' width="fit-content">SOFTIQ</a>
+</div>
+</div>
+</div>
+</body>
+</html>

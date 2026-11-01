@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&amp;family=Jost:wght@400;600&amp;family=Playfair+Display:wght@600&amp;display=swap"
+          rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #f0f4f2;
+            font-family: 'Jost', sans-serif;
+            padding: 32px 16px;
+            color: #1a1a1a;
+        }
+
+        .email-wrapper {
+            width: 100%;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 4px 24px;
+        }
+
+        .brand {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .brand-name {
+            font-family: 'Jost', sans-serif;
+            font-weight: 400;
+            font-size: 1.75rem;
+            color: #1B4242;
+            letter-spacing: -0.5px;
+            line-height: 1;
+        }
+
+        .brand-sub {
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #7DA596;
+        }
+
+        .badge {
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 6px 14px;
+            border-radius: 100px;
+        }
+
+        .section-title {
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #7DA596;
+            padding: 0 4px 12px;
+        }
+
+        .report-card {
+            background: #fff;
+            border-radius: 12px;
+            border: 1px solid #e8eeec;
+            padding: 24px 20px;
+            margin-bottom: 24px;
+        }
+
+        .report-title {
+            font-family: 'Arial', serif;
+            font-size: 1.2rem;
+            color: #1B4242;
+            margin-bottom: 6px;
+        }
+
+        .report-meta {
+            font-size: 0.78rem;
+            color: #7DA596;
+            margin-bottom: 18px;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .report-content {
+            font-size: 0.92rem;
+            line-height: 1.7;
+            color: #2c3c3c;
+        }
+
+        .report-content p {
+            margin-bottom: 10px;
+        }
+
+        .detail-section {
+            margin-top: 18px;
+        }
+
+        .detail-title {
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #1B4242;
+            margin-bottom: 10px;
+        }
+
+        .detail-title.error {
+            color: #560d0d;
+        }
+
+        .message-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .message-item {
+            width: 100%;
+            max-width: 100%;
+            overflow: hidden;
+            background: #f7faf8;
+            border: 1px solid #e8eeec;
+            border-left: 3px solid #7DA596;
+            padding: 12px 14px;
+            color: #2c3c3c;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
+
+        .message-item img {
+            display: block;
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+        }
+
+        .message-item.error {
+            border-left-color: #a84040;
+            background: #fcf5f5;
+        }
+
+        .empty-state {
+            color: #48615a;
+            font-size: 0.92rem;
+        }
+
+        .summary-banner {
+            background: #eef5f2;
+            border-left: 3px solid #7DA596;
+            border-radius: 0 8px 8px 0;
+            padding: 14px 16px;
+            margin-bottom: 18px;
+            color: #2c3c3c;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .stat-card {
+            background: #f7faf8;
+            border: 1px solid #e8eeec;
+            border-radius: 10px;
+            padding: 14px 16px;
+        }
+
+        .stat-label {
+            font-size: 0.66rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #7DA596;
+            margin-bottom: 6px;
+        }
+
+        .stat-value {
+            font-size: 0.98rem;
+            font-weight: 600;
+            color: #1B4242;
+            line-height: 1.4;
+            word-break: break-word;
+        }
+
+        .report-divider {
+            height: 1px;
+            background: linear-gradient(to right, #7DA596, transparent);
+            margin: 18px 0;
+            border: none;
+        }
+
+        .footer {
+            background: linear-gradient(to right, #1B4242, #2d6b5e);
+            border-radius: 16px;
+            padding: 28px 24px 18px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 20px;
+        }
+
+        .footer-col {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .footer-brand {
+            font-family: 'Jost', sans-serif;
+            font-weight: 400;
+            font-size: 1.05rem;
+            color: #fff;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .footer-tagline {
+            font-size: 0.72rem;
+            color: rgba(255, 255, 255, 0.65);
+            line-height: 1.5;
+        }
+
+        .footer-info-row {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+            margin-bottom: 4px;
+        }
+
+        .footer-info-value {
+            font-size: 0.76rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .footer-news {
+            background: #7DA596;
+            color: #fff;
+            font-size: 0.55rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-align: center;
+            padding: 2px 6px;
+            border-radius: 100px;
+            vertical-align: middle;
+        }
+
+        .footer a {
+            color: rgba(255, 255, 255, 0.65);
+            text-decoration: none;
+            font-size: 0.76rem;
+            border-bottom: 1px solid transparent;
+            width: fit-content;
+        }
+
+        .footer a:hover {
+            color: #fff;
+            border-bottom-color: rgba(255, 255, 255, 0.4);
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 16px 10px;
+            }
+
+            .brand-name {
+                font-size: 1.4rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body bgcolor="#f0f4f2"
+      style='background-color:#f0f4f2; font-family:"Jost", sans-serif; padding:32px 16px; color:#1a1a1a'>
+<div class="email-wrapper" style="width:100%; max-width:600px; margin:auto">
+
+    <div class="header" style="display:flex; align-items:center; justify-content:space-between; padding:0 4px 24px">
+        <div class="brand" style="display:flex; flex-direction:column; gap:2px">
+            <span class="brand-name"
+                  style='font-family:"Jost", sans-serif; font-weight:400; font-size:1.75rem; color:#1B4242; letter-spacing:-0.5px; line-height:1'>SOFTIQ</span>
+            <span class="brand-sub"
+                  style="font-size:0.7rem; font-weight:500; letter-spacing:3px; text-transform:uppercase; color:#7DA596"
+                  th:text="${brandSub != null ? brandSub : 'Test report'}">Test report</span>
+        </div>
+        <span
+                class="badge"
+                th:style="|background-color:${badgeText == 'PASSED' ? '#1B4242' : '#560d0d'}; font-size:0.7rem; font-weight:600; letter-spacing:2px; text-transform:uppercase; padding:6px 14px; border-radius:100px; color:#fff|"
+                th:text="${badgeText != null ? badgeText : 'Chyby'}">Chyby</span>
+    </div>
+
+    <p class="section-title"
+       style="font-size:0.65rem; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:#7DA596; padding:0 4px 12px"
+       th:text="${sectionTitle != null ? sectionTitle : 'Průběh testovací sady'}">Prubeh testovaci sady</p>
+
+    <div class="report-card"
+         style="background:#fff; border-radius:12px; border:1px solid #e8eeec; padding:24px 20px; margin-bottom:24px">
+        <div class="report-title"
+             style='font-family:"Arial", serif; font-size:1.2rem; color:#1B4242; margin-bottom:6px'
+             th:text="${reportTitle}">
+            Report testu
+        </div>
+        <div class="report-meta"
+             style="font-size:0.78rem; color:#7DA596; margin-bottom:18px; letter-spacing:0.04em; text-transform:uppercase"
+             th:text="${reportMeta}">
+            13.4.2026 10:30
+        </div>
+        <div class="summary-banner"
+             style="background:#eef5f2; border-left:3px solid #7DA596; border-radius:0 8px 8px 0; padding:14px 16px; margin-bottom:18px; color:#2c3c3c"
+             th:text="${summaryText}">
+            Běh testovací sady proběhl úspěšně.
+        </div>
+
+        <div class="report-content"
+             style="font-size:0.92rem; line-height:1.7; color:#2c3c3c">
+            <div class="detail-section" th:if="${!#lists.isEmpty(errorMessages)}">
+                <div class="detail-title error"
+                     style="font-size:0.82rem; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:#560d0d; margin-bottom:10px">
+                    Chybové záznamy
+                </div>
+                <ul class="message-list"
+                    style="list-style:none; display:flex; flex-direction:column; gap:10px; margin:0; padding:0">
+                    <li class="message-item error"
+                        style="width:100%; max-width:100%; overflow:hidden; overflow-wrap:anywhere; word-break:break-word; background:#fcf5f5; border:1px solid #e8eeec; border-left:3px solid #a84040; padding:12px 14px; color:#2c3c3c; line-height:1.6; white-space:pre-wrap"
+                        th:each="message : ${errorMessages}"
+                        th:utext="${message}">
+                        Chyba během testu
+                    </li>
+                </ul>
+            </div>
+
+            <div class="detail-section" th:if="${!#lists.isEmpty(successMessages)}">
+                <div class="detail-title"
+                     style="font-size:0.82rem; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:#1B4242; margin-bottom:10px">
+                    Úspěšné záznamy
+                </div>
+                <ul class="message-list"
+                    style="list-style:none; display:flex; flex-direction:column; gap:10px; margin:0; padding:0">
+                    <li class="message-item"
+                        style="background:#f7faf8; border:1px solid #e8eeec; border-left:3px solid #7DA596; padding:12px 14px; color:#2c3c3c; line-height:1.6; white-space:pre-wrap"
+                        th:each="message : ${successMessages}"
+                        th:utext="${message}">
+                        Úspěšný krok
+                    </li>
+                </ul>
+            </div>
+
+            <p class="empty-state"
+               style="color:#48615a; font-size:0.92rem"
+               th:if="${#lists.isEmpty(errorMessages) and #lists.isEmpty(successMessages)}">
+                Report neobsahuje detailní záznamy.
+            </p>
+        </div>
+        <hr class="report-divider"
+            style="height:1px; background:linear-gradient(to right, #7DA596, transparent); margin:18px 0; border:none">
+        <div class="stats-grid"
+             style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:18px">
+            <div class="stat-card"
+                 style="background:#f7faf8; border:1px solid #e8eeec; border-radius:10px; padding:14px 16px">
+                <div class="stat-label"
+                     style="font-size:0.66rem; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:#7DA596; margin-bottom:6px">Výsledek</div>
+                <div class="stat-value"
+                     style="font-size:0.98rem; font-weight:600; color:#1B4242; line-height:1.4"
+                     th:text="${resultText}">PASSED</div>
+            </div>
+            <div class="stat-card"
+                 style="background:#f7faf8; border:1px solid #e8eeec; border-radius:10px; padding:14px 16px">
+                <div class="stat-label"
+                     style="font-size:0.66rem; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:#7DA596; margin-bottom:6px">Profil</div>
+                <div class="stat-value"
+                     style="font-size:0.98rem; font-weight:600; color:#1B4242; line-height:1.4"
+                     th:text="${profile}">DEV</div>
+            </div>
+            <div class="stat-card"
+                 style="background:#f7faf8; border:1px solid #e8eeec; border-radius:10px; padding:14px 16px">
+                <div class="stat-label"
+                     style="font-size:0.66rem; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:#7DA596; margin-bottom:6px">Začátek</div>
+                <div class="stat-value"
+                     style="font-size:0.98rem; font-weight:600; color:#1B4242; line-height:1.4"
+                     th:text="${startedAt}">13.4.2026 10:30:00</div>
+            </div>
+            <div class="stat-card"
+                 style="background:#f7faf8; border:1px solid #e8eeec; border-radius:10px; padding:14px 16px">
+                <div class="stat-label"
+                     style="font-size:0.66rem; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:#7DA596; margin-bottom:6px">Konec</div>
+                <div class="stat-value"
+                     style="font-size:0.98rem; font-weight:600; color:#1B4242; line-height:1.4"
+                     th:text="${finishedAt}">13.4.2026 10:32:15</div>
+            </div>
+            <div class="stat-card"
+                 style="background:#f7faf8; border:1px solid #e8eeec; border-radius:10px; padding:14px 16px">
+                <div class="stat-label"
+                     style="font-size:0.66rem; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:#7DA596; margin-bottom:6px">Délka běhu</div>
+                <div class="stat-value"
+                     style="font-size:0.98rem; font-weight:600; color:#1B4242; line-height:1.4"
+                     th:text="${duration}">2m 15s</div>
+            </div>
+            <div class="stat-card"
+                 style="background:#f7faf8; border:1px solid #e8eeec; border-radius:10px; padding:14px 16px">
+                <div class="stat-label"
+                     style="font-size:0.66rem; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:#7DA596; margin-bottom:6px">Úspěšné záznamy</div>
+                <div class="stat-value"
+                     style="font-size:0.98rem; font-weight:600; color:#1B4242; line-height:1.4"
+                     th:text="${successCount}">12</div>
+            </div>
+            <div class="stat-card"
+                 style="background:#f7faf8; border:1px solid #e8eeec; border-radius:10px; padding:14px 16px">
+                <div class="stat-label"
+                     style="font-size:0.66rem; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:#7DA596; margin-bottom:6px">Chybové záznamy</div>
+                <div class="stat-value"
+                     style="font-size:0.98rem; font-weight:600; color:#1B4242; line-height:1.4"
+                     th:text="${errorCount}">0</div>
+            </div>
+            <div class="stat-card"
+                 style="background:#f7faf8; border:1px solid #e8eeec; border-radius:10px; padding:14px 16px">
+                <div class="stat-label"
+                     style="font-size:0.66rem; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:#7DA596; margin-bottom:6px">Celkem záznamů</div>
+                <div class="stat-value"
+                     style="font-size:0.98rem; font-weight:600; color:#1B4242; line-height:1.4"
+                     th:text="${totalCount}">12</div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="footer"
+         style="background:linear-gradient(to right, #1B4242, #2d6b5e); border-radius:16px; padding:28px 24px 18px">
+        <div class="footer-grid" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:24px; margin-bottom:20px">
+            <div align="center"
+                 class="footer-col center"
+                 style="display:flex; flex-direction:column; gap:5px; align-items:center; justify-content:center; text-align:center">
+                <div class="footer-brand"
+                     style='font-family:"Jost", sans-serif; font-weight:400; font-size:1.05rem; letter-spacing:0.15em; text-transform:uppercase; margin-bottom:4px; color:#fff'>
+                    SOFTIQ
+                </div>
+                <p class="footer-tagline" style="font-size:0.72rem; color:rgba(255, 255, 255, 0.65); line-height:1.5">
+                    Automatické reporty a monitoring
+                </p>
+                <span align="center"
+                      class="footer-news"
+                      style="background:#7DA596; font-size:0.55rem; font-weight:600; letter-spacing:2px; text-transform:uppercase; text-align:center; padding:2px 6px; border-radius:100px; vertical-align:middle; color:#fff" valign="middle">Report</span>
+                <span class="footer-tagline"
+                      style="font-size:0.72rem; color:rgba(255, 255, 255, 0.65); line-height:1.5"> Testovací sada </span>
+            </div>
+
+            <div class="footer-col"
+                 style="display:flex; flex-direction:column; gap:5px; align-items:center; justify-content:center">
+                <span class="footer-info-value"
+                      style="font-size:0.76rem; color:rgba(255, 255, 255, 0.8); text-align:center"
+                      th:text="${reportFooterNote}">
+                    Automaticky odeslaný report po dokončení testovací sady.
+                </span>
+            </div>
+
+            <div class="footer-col"
+                 style="display:flex; flex-direction:column; gap:5px; align-items:center; justify-content:center">
+                <div class="footer-info-row" style="display:flex; flex-direction:column; gap:1px; margin-bottom:4px">
+                    <span class="footer-info-value" style="font-size:0.76rem; color:rgba(255, 255, 255, 0.8); text-align:center">Historie reportů a logů na <a
+                            href="https://softiq.cz"
+                            style="color:rgba(255, 255, 255, 0.65); text-decoration:none; font-size:0.76rem; border-bottom:1px solid transparent; width:fit-content"
+                            width="fit-content">SOFTIQ.cz</a></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

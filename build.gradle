@@ -1,0 +1,86 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+    id 'io.spring.dependency-management' version '1.1.7'
+    id 'com.diffplug.spotless' version '6.20.0'
+}
+group = 'cz.softiq.watchdog'
+version = '1.0.0'
+dependencyManagement { imports { mavenBom 'org.springframework.boot:spring-boot-dependencies:3.5.3' } }
+java { toolchain { languageVersion = JavaLanguageVersion.of(24) } }
+tasks.withType(JavaCompile).configureEach {
+    options.compilerArgs += ['-Xlint:deprecation', '-Xlint:unchecked']
+}
+spotless { java { googleJavaFormat('1.17.0') } }
+repositories {
+    if (providers.gradleProperty('useMavenLocal').isPresent()) { mavenLocal() }
+    mavenCentral()
+    maven {
+        url = uri('https://maven.pkg.github.com/softiqcz/softiq-core-app')
+        credentials {
+            username = findProperty('github.username') ?: System.getenv('GITHUB_USERNAME')
+            password = findProperty('github.token') ?: System.getenv('GITHUB_TOKEN')
+        }
+        content { includeGroup 'cz.softiq.core' }
+    }
+    maven {
+        url = uri('https://maven.pkg.github.com/softiqcz/softiq-watchdog-core')
+        credentials {
+            username = findProperty('github.username') ?: System.getenv('GITHUB_USERNAME')
+            password = findProperty('github.token') ?: System.getenv('GITHUB_TOKEN')
+        }
+        content { includeGroup 'cz.softiq.watchdog' }
+    }
+}
+dependencies {
+    api 'cz.softiq.core:softiq-core-app:1.21.7'
+    api 'com.openhtmltopdf:openhtmltopdf-pdfbox:1.0.10'
+    annotationProcessor 'org.projectlombok:lombok:1.18.40'
+    testImplementation 'org.mockito:mockito-core'
+}
+java { withSourcesJar() }
+test { useTestNG() }
+publishing {
+    publications { mavenJava(MavenPublication) { from components.java } }
+    repositories {
+        maven {
+            name = 'GitHubPackages'
+            url = uri('https://maven.pkg.github.com/softiqcz/softiq-watchdog-core')
+            credentials {
+                username = findProperty('github.username') ?: System.getenv('GITHUB_USERNAME')
+                password = findProperty('github.token') ?: System.getenv('GITHUB_TOKEN')
+            }
+        }
+    }
+}
+// Publication is explicit: build/check never uploads packages.
+['paymentRegressionTest': '*WatchDogMembershipWorkflowComponentTest',
+ 'reportRegressionTest': '*ReportingPersistenceComponentTest',
+ 'portfolioRegressionTest': '*RealiqAnalysisTest'].each { taskName, pattern ->
+    tasks.register(taskName, Test) {
+        group = 'verification'
+        testClassesDirs = sourceSets.test.output.classesDirs
+        classpath = sourceSets.test.runtimeClasspath
+        useTestNG()
+        filter { includeTestsMatching pattern }
+    }
+}
+
+tasks.register('verifySharedArtifact') {
+    group = 'verification'
+    dependsOn tasks.named('jar')
+    doLast {
+        new java.util.zip.ZipFile(tasks.named('jar').get().archiveFile.get().asFile).withCloseable { zip ->
+            def forbidden = zip.entries().collect { it.name }.findAll { name ->
+                name.contains('/controller/') || name.contains('/pages/') ||
+                name.contains('/service/schedule/') || name.contains('/tests/') ||
+                name.contains('/common/service/docker/') ||
+                name.endsWith('/SearchComponent.class') || name.endsWith('/RealityProvider.class') ||
+                name.endsWith('/WatchDogAutomationComponent.class') ||
+                name.endsWith('/WatchDogHtmlOfferParser.class') || name.startsWith('application')
+            }
+            if (!forbidden.empty) throw new GradleException("Shared library contains app-specific code: ${forbidden}")
+        }
+    }
+}
+tasks.named('check') { dependsOn tasks.named('verifySharedArtifact') }
